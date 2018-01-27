@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f77d5b0-0fc6-4ece-8202-b08572de04f0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table" fill="Solid">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF" fill="Solid"/>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF"/>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF"/>
+	<subDataset name="Table Dataset 1" uuid="b7105dbb-8d06-493d-8148-b6e3b10f7301">
+		<field name="name" class="java.lang.String"/>
+		<field name="price" class="java.lang.Float"/>
+		<field name="count" class="java.lang.Float"/>
+		<field name="unitName" class="java.lang.String"/>
+		<variable name="TOTALS" class="java.lang.Float" calculation="Sum">
+			<variableExpression><![CDATA[$F{count}]]></variableExpression>
+			<initialValueExpression><![CDATA[$F{count}]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="nameCustomer" class="java.lang.String"/>
+	<parameter name="addressCustomer" class="java.lang.String"/>
+	<parameter name="typePay" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="sophieu" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="203" splitType="Stretch">
+			<textField>
+				<reportElement x="152" y="101" width="403" height="20" uuid="f3854a1c-d60d-4256-b24e-ef141b2c5e08"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nameCustomer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="126" width="403" height="20" uuid="61c08481-207d-4980-a7aa-a885c6188039"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{addressCustomer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="151" width="403" height="20" uuid="8d4737a0-e8be-49bd-8787-0023f6b71eff"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{typePay}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="194" y="57" width="221" height="21" uuid="e0071827-d83f-4b25-8283-53dd61f97bcc"/>
+				<textElement>
+					<font fontName="Arial" size="18" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[PHIẾU XUẤT KHO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="101" width="136" height="20" uuid="e5457fd4-ce11-4ab4-89a9-7f4215e8da60"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Họ và tên người nhận:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="126" width="136" height="20" uuid="e98c5d3e-1ede-4b26-922a-bcea6f8f1f48"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Địa chỉ(bộ phận):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="136" height="20" uuid="f6a68ae7-ad52-45d2-91c2-37a63f63ff72"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Lý do xuất kho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="179" width="136" height="20" uuid="060dca08-6e02-49b9-8ef4-5593cab29cb4"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Xuất tại kho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="179" width="66" height="20" uuid="0269805c-68dd-461f-bcd5-e1a9a7b7280b"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Đặc điểm]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="205" y="81" width="150" height="20" uuid="75be21fb-82dc-4e26-bc8c-77fbb46f1994"/>
+				<textElement>
+					<font fontName="Arial" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-2" y="0" width="338" height="48" uuid="8a347ce9-dccf-4c6b-9526-6fa20f480542"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[CÔNG TY TNHH MTV SẢN XUẤT & THƯƠNG MẠI ĐỖ TRIỆU
+Đ/C: AN ĐÔNG - AN BÌNH - NAM SÁCH - HẢI DƯƠNG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="0" width="95" height="20" uuid="c4cc70b5-7865-4f12-a86e-cf4bed1ea9b2"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Mẫu số 02 -VT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="14" width="232" height="28" uuid="dc148982-8f94-4533-adbd-5279a348dee5"/>
+				<textElement>
+					<font fontName="Arial" size="10" isItalic="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ban hành theo QĐ số 48/2006/QD - BTC
+Ngày 14/09/2006 của Bộ trưởng BTC)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="78" width="52" height="20" uuid="16c64cf9-938b-431f-b311-b19fe2a68b09"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Số phiếu]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="443" y="78" width="112" height="20" uuid="a13baa30-55b1-4e78-87f1-69aa05d35081"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sophieu}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="74" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" mode="Opaque" x="0" y="0" width="555" height="73" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="e969e16c-6db1-4ec3-b5d2-175118340f7d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="819dbaf1-1b2a-4ab6-9425-8619f68c3aff">
+						<dataSourceExpression><![CDATA[$P{ItemDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="41" uuid="eb14e5c1-50a4-47c9-ada2-f9b892409128">
+						<jr:columnHeader height="60" rowSpan="2">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="38" height="36" backcolor="#FFFFFF" uuid="0c114503-e0f4-400e-a863-665cf06d8416"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[STT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:columnFooter>
+						<jr:detailCell height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="41" height="26" uuid="0c890ea8-be4a-47de-938c-851b671a1b4e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="154" uuid="4338e8a8-e1e9-4329-8e42-eaf65fb8d4e6">
+						<jr:columnHeader height="60" rowSpan="2">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="154" height="46" backcolor="#FFFFFF" uuid="473972a2-054b-48ff-b29a-efe23f76c128"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Tên, nhãn hiệu, quy cách, phẩm chất vật tư, dụng cụ, sản phẩm, hàng hóa]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="154" height="30" uuid="2a91a5e1-6592-4880-8c26-be2dac4143f1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="14" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Cộng]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textField>
+								<reportElement x="13" y="0" width="141" height="26" uuid="5e35e1ca-d8d2-4103-ae92-ed403935218d"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font fontName="Arial" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="56" uuid="a7ebaec9-accb-46f1-ac8b-043b52132dd2">
+						<jr:columnHeader height="60" rowSpan="2">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="56" height="36" backcolor="#FFFFFF" uuid="f3a06c19-36c1-433a-9fbc-1623846e68d8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Mã số]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="73" uuid="559260b8-e2cb-4d31-ae52-ce5aa727487d">
+						<jr:columnHeader height="60" rowSpan="2">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="72" height="36" backcolor="#FFFFFF" uuid="d6e576f9-d846-4e81-b3a9-fee81ec66115"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Đơn vị tính]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:columnFooter>
+						<jr:detailCell height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="73" height="30" uuid="ae78a275-d4d7-4d03-a7d6-5d1d065866fe"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="10" isBold="false" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{unitName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:columnGroup width="92" uuid="3463b5ea-b43b-48fb-8385-888a9485fcfd">
+						<jr:columnHeader height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="92" height="30" backcolor="#FFFFFF" uuid="f171ca11-d34f-45ed-8b1c-fbf0828a2f3a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Số lượng]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:column width="44" uuid="5cf2917b-2287-4354-8645-d57ad72b9b7d">
+							<jr:columnHeader height="30" rowSpan="1">
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1">
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+							</jr:columnFooter>
+							<jr:detailCell height="30" rowSpan="1">
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="079773f5-61a3-4a2d-9b48-365f45ef744e">
+							<jr:columnHeader height="30" rowSpan="1">
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<staticText>
+									<reportElement x="0" y="0" width="48" height="30" uuid="fcb9c656-842c-480d-b808-2cdcc0467403"/>
+									<textElement textAlignment="Center">
+										<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									</textElement>
+									<text><![CDATA[Thực 
+xuất]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1">
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textField pattern="#,##0">
+									<reportElement x="0" y="0" width="48" height="30" uuid="5217b133-3e2d-4e68-bec2-df5ab22d9a1f"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$V{TOTALS}]]></textFieldExpression>
+								</textField>
+							</jr:columnFooter>
+							<jr:detailCell height="30" rowSpan="1">
+								<box>
+									<pen lineWidth="1.0"/>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textField pattern="#,##0">
+									<reportElement x="0" y="0" width="48" height="30" uuid="c782e399-6746-4dda-a7e8-6be1e5549a0d"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+					<jr:column width="54" uuid="1ef4ee5a-bd6c-4b7d-81ba-19b93124d21c">
+						<jr:columnHeader height="60" rowSpan="2">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="54" height="60" backcolor="#FFFFFF" uuid="07a4cd63-918d-48ce-b13d-de9788a330ad"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Đơn giá]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:columnFooter>
+						<jr:detailCell height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="54" height="30" uuid="730f2911-5af2-4d40-80b5-b060dc6e78c5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="c7e5d5da-f1c0-47fe-b79a-47db74d25cd8">
+						<jr:tableHeader height="0" rowSpan="1"/>
+						<jr:tableFooter height="0" rowSpan="1"/>
+						<jr:columnHeader height="60" rowSpan="2">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="60" uuid="ba16bb36-3fc3-4f38-9406-eecc5f9e1a9e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[Thành tiền]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:columnFooter>
+						<jr:detailCell height="30" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<summary>
+		<band height="170" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="72" width="95" height="20" uuid="8e704e50-f952-4219-8115-4acfdebdcf2d"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Người lập phiếu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="72" width="105" height="20" uuid="f3b5a3c8-ec40-47c9-aef5-ca347eab0cbe"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Người nhận hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="72" width="61" height="20" uuid="793f315c-2787-498a-a742-92ff63eeaa24"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Thủ kho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="72" width="94" height="20" uuid="fd1cd83e-2912-44bc-8c0d-49e5485f0bd7"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Kế toán trưởng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="72" width="64" height="20" uuid="fc955835-89ec-48e9-b440-4eafbb91d172"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Giám đốc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="92" width="65" height="20" uuid="d25f37b0-ab59-41f7-88e4-585d05710a9d"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="92" width="65" height="20" uuid="9accdc96-bda6-437c-bb81-bd1fc9c7e399"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="92" width="65" height="20" uuid="2f215d56-6326-4e88-9f8b-96cca73f4ccf"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="92" width="65" height="20" uuid="61793aec-dc3e-4802-a349-d44665d71c8d"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="92" width="65" height="20" uuid="d94cdf95-abea-490c-b789-c087decdf799"/>
+				<textElement>
+					<font fontName="Arial" size="12" isItalic="true" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(Ký, họ tên)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="8" width="152" height="20" uuid="a0d5d05b-4d9d-4642-be25-a90d29d0ea8c"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tổng số tiền(viết bằng chữ):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="152" height="20" uuid="92221e2f-f0e4-4d25-adcf-0505db695137"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="C:\Windows\Fonts\Arial.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Số chứng từ kèm theo:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
