@@ -5,18 +5,10 @@
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
     <bean id="myDataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223275?characterEncoding=UTF-8" />
-        <property name="username" value="sql3223275" />
-        <property name="password" value="cz5GGSfFDU" />
-        
-<!--        <property name="url" value="jdbc:mysql://db4free.net:3306/chemmist?characterEncoding=UTF-8" />
-        <property name="username" value="namph" />
-        <property name="password" value="123456a@" />-->
-        
-<!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/chemmist?characterEncoding=UTF-8" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />-->
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost/mydb?characterEncoding=UTF-8" />
+        <property name="username" value="postgres" />
+        <property name="password" value="123456a@" />
     </bean>
     <bean id="mySessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -42,7 +34,7 @@
  
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.connection.CharSet">utf8</prop>
                 <prop key="hibernate.connection.characterEncoding">utf8</prop>

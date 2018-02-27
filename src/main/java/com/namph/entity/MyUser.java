@@ -48,7 +48,7 @@ public class MyUser extends PagingModel implements Serializable {
     @Column(name = "FULL_NAME", nullable = true, length = 255)
     private String fullName;
 
-    @Column(name = "STATUS", nullable = false, length = 1)
+    @Column(name = "STATUS", nullable = false)
     private Integer active;
 
     @Column(name = "IS_ADMIN", nullable = false, length = 1)
