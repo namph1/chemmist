@@ -241,13 +241,15 @@ public class ExportController {
                     int maxNo = exportDao.getMaxNoByMonth(exp) + 1;
                     Date createdDate = Utils.stringDDMMYYY2Date(curr.replaceAll("-", "/"));//new Date();
                     Calendar cal = Calendar.getInstance();
+                    cal.setTime(Utils.getTimeVN());
                     Calendar cal1 = Calendar.getInstance();
                     cal1.setTime(createdDate);
                     cal1.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
                     cal1.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
                     cal1.set(Calendar.SECOND, cal.get(Calendar.SECOND));
-                    createdDate = cal1.getTime();
-                    List<ExportDetail> lstDetail = new ArrayList<ExportDetail>();
+                    createdDate = cal1.getTime();                   
+                    
+                    List<ExportDetail> lstDetail = new ArrayList<>();
                     for (Product arrProduct1 : arrProduct) {
                         ExportDetail detail = new ExportDetail();
                         detail.setProduct(new Product(arrProduct1.getId()));

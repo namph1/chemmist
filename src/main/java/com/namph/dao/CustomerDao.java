@@ -18,7 +18,7 @@ public interface CustomerDao {
 
     int getCount(Customer customer);
 
-    int edit(Customer customer);
+    int edit(Customer customer) throws Exception;
 
     Customer getCustomerById(Integer customerid, boolean isLazy);
 }

@@ -12,10 +12,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  *
@@ -803,6 +806,26 @@ public class Utils {
         }
         Date lastDateOfCurrMonth = aCalendar.getTime();
         return lastDateOfCurrMonth;
+    }
+    
+    public static Date getTimeVN() throws ParseException {
+        Date now = new Date();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Saigon"));
+        return convertToDate(df.format(now), "dd/MM/yyyy HH:mm:ss");
+    }
+
+    public static Date getTimeVNNoFull() throws ParseException {
+        Date now = new Date();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Saigon"));
+        return convertToDate(df.format(now), "dd/MM/yyyy");
+    }
+    
+    public static Date convertToDate(String input, String strFormat) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(strFormat);
+        Date date = sdf.parse(input);
+        return date;
     }
 
     public static int getPreviousMonth() {

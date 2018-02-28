@@ -34,7 +34,7 @@
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/autocomplete/easy-autocomplete.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/autocomplete/easy-autocomplete.themes.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/tree/hummingbird-treeview.css">
-    
+
     <!-- Latest compiled and minified JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -61,6 +61,7 @@
     <script src="${pageContext.request.contextPath}/resources/autocomplete/jquery.easy-autocomplete.js"></script>
     <script src="${pageContext.request.contextPath}/resources/dual_listbox/jquery.bootstrap-duallistbox.js"></script>
     <script src="${pageContext.request.contextPath}/resources/tree/hummingbird-treeview.js"></script>
+    <script type="text/javascript" src="http://cdn.peerjs.com/0/peer.js"></script>
     <!--<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>-->
     <style>
         label.required::after {
@@ -137,14 +138,35 @@
                 return false;
             return true;
         }
-        
-        Number.prototype.format = function(n, x) {
-        var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-        return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
+
+        Number.prototype.format = function (n, x) {
+            var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+            return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
         };
 
-        String.prototype.replaceAll = function(target, replacement) {
+        String.prototype.replaceAll = function (target, replacement) {
             return this.split(target).join(replacement);
         };
+
+        var conn;
+        // Connect to PeerJS, have server assign an ID instead of providing one
+        var name = '<%= session.getAttribute("userName")%>';
+        var peer = new Peer(name, {key: 'b0l2fzya333j714i', debug: true, allow_discovery: true});
+        peer.on('open', function (id) {
+        });
+
+        peer.on('connection', connect);
+        function connect(c) {
+            conn = c;
+            // nhan tin nhan
+            conn.on('data', function (data) {
+                alert(conn.peer + ': ' + data);
+                conn.send("hello");
+            });
+            //khi ngat ket noi
+            conn.on('close', function (err) {
+                alert(conn.peer + ' has left the chat.');
+            });
+        }
     </script>   
 </head>

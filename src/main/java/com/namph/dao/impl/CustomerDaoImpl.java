@@ -7,6 +7,7 @@ package com.namph.dao.impl;
 
 import com.namph.dao.CustomerDao;
 import com.namph.entity.Customer;
+import com.namph.utils.Utils;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -68,7 +69,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public int edit(Customer customer) {
+    public int edit(Customer customer) throws Exception{
         Session session = this.sessionFactory.getCurrentSession();
         if (customer.getId() != null) {
             if (customer.getStatus() != null) {
@@ -113,7 +114,7 @@ public class CustomerDaoImpl implements CustomerDao {
             }
 
             customer.setStatus(1);
-            customer.setCreatedDate(new Date());
+            customer.setCreatedDate(Utils.getTimeVN());
             session.persist(customer);
         }
         return customer.getId();

@@ -63,6 +63,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         String targetUrl = determineTargetUrl(authentication);
         UserCustomImpl user = (UserCustomImpl) authentication.getPrincipal();
         request.getSession().setAttribute("fullName", user.getUsers().getFullName());
+        request.getSession().setAttribute("userName", user.getUsers().getName());
         request.getSession().setAttribute("createDate", user.getUsers().getStrCreateDate());
         request.getSession().setAttribute("positon", user.getUsers().getPosition());
         Set<Menu> setMenu = new HashSet<>();

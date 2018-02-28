@@ -18,6 +18,7 @@ import com.namph.model.Page;
 import com.namph.model.UserCustomImpl;
 import com.namph.utils.CONSTANT;
 import com.namph.utils.PageUtils;
+import com.namph.utils.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -174,7 +175,7 @@ public class ImportController {
                 imp.setFeeShip(arrProduct[0].getTotal());
                 imp.setRate(arrProduct[0].getPriceAu());
                 int maxNo = importDao.getMaxNoByMonth(imp) + 1;
-                Date createdDate = new Date();
+                Date createdDate = Utils.getTimeVN();
                 List<ImportDetail> lstDetail = new ArrayList<>();
                 Float weight = 0f;
                 Float price = 0f;

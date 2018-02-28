@@ -13,6 +13,7 @@ import com.namph.entity.Customer;
 import com.namph.entity.Money;
 import com.namph.model.Page;
 import com.namph.utils.PageUtils;
+import com.namph.utils.Utils;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -37,8 +38,7 @@ public class MoneyController {
     private MoneyDao moneyDao;
     @Autowired
     private CustomerDao customerDao;
-    
-    
+
     @RequestMapping(value = "/cash", method = RequestMethod.GET)
     public String initCash(Model model) {
         List<Customer> lstCus = customerDao.getListCustomer(new Customer(null, 1));
@@ -93,13 +93,17 @@ public class MoneyController {
             mone.setTotal(money.getTotal());
             rs = moneyDao.edittMoney(mone);
         } else {
-            if (money.getCustomerId() != null) {
-                money.setCustomer(new Customer(money.getCustomerId()));
+            try {
+
+                if (money.getCustomerId() != null) {
+                    money.setCustomer(new Customer(money.getCustomerId()));
+                }
+                money.setNo(moneyDao.getMaxNoOfCurMonthByTypeByStatus(new Money(1, money.getStatus())) + 1);
+                money.setType(1);
+                money.setCreatedDate(Utils.getTimeVN());
+                rs = moneyDao.insertMoney(money);
+            } catch (Exception e) {
             }
-            money.setNo(moneyDao.getMaxNoOfCurMonthByTypeByStatus(new Money(1, money.getStatus())) + 1);
-            money.setType(1);
-            money.setCreatedDate(new Date());
-            rs = moneyDao.insertMoney(money);
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json2 = gson.toJson(rs > 0 ? "Thành công" : "Thất bại");
