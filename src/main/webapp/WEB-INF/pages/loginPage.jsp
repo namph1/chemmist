@@ -33,7 +33,7 @@
         <%--<jsp:include page="_menu.jsp" />--%>
         <div class="login-box">
             <div class="login-logo">
-                <a href="${pageContext.request.contextPath}"><b>Đỗ </b>Triệu</a>
+                <a href="${pageContext.request.contextPath}"><b>Nam </b>Dương</a>
             </div>
             <div class="login-box-body">
                 <c:if test="${param.error == 'true'}">
