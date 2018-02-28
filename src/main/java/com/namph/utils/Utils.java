@@ -792,6 +792,19 @@ public class Utils {
         return lastDateOfCurrMonth;
     }
 
+    public static Date getLastDayOfCurrentMonth(boolean setStartTime) {
+        Calendar aCalendar = Calendar.getInstance();
+        aCalendar.add(Calendar.MONTH, 0);
+        aCalendar.set(Calendar.DATE, aCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        if (setStartTime) {
+            aCalendar.set(Calendar.HOUR_OF_DAY, 23);
+            aCalendar.set(Calendar.MINUTE, 59);
+            aCalendar.set(Calendar.SECOND, 59);
+        }
+        Date lastDateOfCurrMonth = aCalendar.getTime();
+        return lastDateOfCurrMonth;
+    }
+
     public static int getPreviousMonth() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(getFirstDayOfPreviousMonth());
@@ -950,7 +963,7 @@ public class Utils {
         }
         return result;
     }
-    
+
     public static void main(String[] args) {
         try {
             Calendar cal = Calendar.getInstance();

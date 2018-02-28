@@ -27,4 +27,6 @@ public interface ExportDao {
     int insertExp(Export emp) throws Exception;
     
     int updateExp(Export emp) throws Exception;
+    
+    int getCountFromTo(Export exp);
 }

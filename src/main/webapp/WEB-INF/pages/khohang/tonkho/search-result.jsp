@@ -28,19 +28,19 @@
                                 <th style="border: 1px solid silver;vertical-align:middle" class="text-center" rowspan="2">STT</th>
                                 <th style="border: 1px solid silver;vertical-align:middle" rowspan="2">Mã sản phẩm</th>
                                 <th style="border: 1px solid silver;vertical-align:middle" rowspan="2">Tên sản phẩm</th>
-                                <th style="border: 1px solid silver;" colspan="2">Tồn kho đầu kỳ</th>
+                                <th style="border: 1px solid silver;"  class="info" colspan="2">Tồn kho đầu kỳ</th>
                                 <th style="border: 1px solid silver;" colspan="2">Nhập kho</th>
-                                <th style="border: 1px solid silver;" colspan="2">Xuất kho</th>
+                                <th style="border: 1px solid silver;"  class="info" colspan="2">Xuất kho</th>
                                 <th style="border: 1px solid silver;" colspan="2">Tồn kho cuối kỳ</th>
                                 <th style="border: 1px solid silver;;vertical-align:middle" class="text-center" rowspan="2">Đơn vị</th>
                             </tr>
                             <tr>
+                                <th style="border: 1px solid silver;" class="info">Khối lượng(kg)</th>
+                                <th style="border: 1px solid silver;" class="info">Số lượng</th>
                                 <th style="border: 1px solid silver;">Khối lượng(kg)</th>
                                 <th style="border: 1px solid silver;">Số lượng</th>
-                                <th style="border: 1px solid silver;">Khối lượng(kg)</th>
-                                <th style="border: 1px solid silver;">Số lượng</th>
-                                <th style="border: 1px solid silver;">Khối lượng(kg)</th>
-                                <th style="border: 1px solid silver;">Số lượng</th>
+                                <th style="border: 1px solid silver;"  class="info">Khối lượng(kg)</th>
+                                <th style="border: 1px solid silver;" class="info">Số lượng</th>
                                 <th style="border: 1px solid silver;">Khối lượng(kg)</th>
                                 <th style="border: 1px solid silver;">Số lượng</th>
                             </tr>
@@ -55,12 +55,12 @@
                                         </td>
                                         <td style="border: 1px solid silver;">${entity.productCode}</td>
                                         <td style="border: 1px solid silver;">${entity.productName}</td>
-                                        <td style="border: 1px solid silver;"  class="text-right <c:if test="${entity.count < 0}"> text-red</c:if>" >
+                                        <td style="border: 1px solid silver;"  class="info text-right <c:if test="${entity.count < 0}"> text-red</c:if>" >
                                             <label>
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.weight * entity.tondauky}" /></label>
                                         </td>
-                                        <td style="border: 1px solid silver;"  class="text-right  <c:if test="${entity.count < 0}"> text-red</c:if>"><label>
+                                        <td style="border: 1px solid silver;"  class="info text-right  <c:if test="${entity.count < 0}"> text-red</c:if>"><label>
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.tondauky}" /></label></td>
                                         <td style="border: 1px solid silver;"  class="text-right  <c:if test="${entity.count < 0}"> text-red</c:if>">
@@ -71,11 +71,11 @@
                                             <label>
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.sanluong}" /></label></td>
-                                        <td style="border: 1px solid silver;"  class="text-right  <c:if test="${entity.count < 0}"> text-red</c:if>">
+                                        <td style="border: 1px solid silver;"  class="info text-right  <c:if test="${entity.count < 0}"> text-red</c:if>">
                                             <label>
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.sanluongXuat * entity.weight}" /></label></td>
-                                        <td style="border: 1px solid silver;" class="text-right  <c:if test="${entity.count < 0}"> text-red</c:if>">
+                                        <td style="border: 1px solid silver;" class="info text-right  <c:if test="${entity.count < 0}"> text-red</c:if>">
                                             <label>
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.sanluongXuat}" /></label></td>
@@ -87,7 +87,7 @@
                                         <td style="border: 1px solid silver;"  class="text-right  <c:if test="${entity.count < 0}"> text-red</c:if>"><label>
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.count}" /></label></td>
-                                        <td style="border: 1px solid silver;">${entity.unitName}</td>
+                                        <td  style="border: 1px solid silver;">${entity.unitName}</td>
                                     </tr>
                                 </c:forEach>
                             </c:if>

@@ -58,8 +58,13 @@
                                         </td>
                                         <td style="border: 1px solid silver;" class="text-right">${entity.feeShip}</td>
                                         <td style="border: 1px solid silver;" class="text-right">${entity.rate}</td>
-                                        <td style="border: 1px solid silver;" class="text-right">${entity.totalPrice}</td>
-                                        <td style="border: 1px solid silver;" class="text-right">${entity.total}</td>
+                                        <td style="border: 1px solid silver;" class="text-right">
+                                            <fmt:formatNumber type = "number" 
+                                                               minFractionDigits="0" maxFractionDigits="2" value = "${entity.totalPrice}" />
+                                            </td>
+                                        <td style="border: 1px solid silver;" class="text-right">
+                                            <fmt:formatNumber type = "number" 
+                                                               minFractionDigits="0" maxFractionDigits="2" value = "${entity.total}" /></td>
                                         <td style="border: 1px solid silver;">${entity.users.name}</td>
                                         <td style="border: 1px solid silver;" class="text-center">
                                             <a onclick="onDetail(${entity.id}, '${entity.feeShip}', '${entity.rate}');" data-toggle="collapse">

@@ -9,6 +9,7 @@ import com.namph.dao.ExportDao;
 import com.namph.entity.Export;
 import com.namph.utils.Utils;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -37,10 +38,12 @@ public class ExportDaoImpl implements ExportDao {
     public int getCount(Export exp) {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria cri = session.createCriteria(Export.class, "exp");
-         cri.createAlias("exp.customer", "customer", JoinType.LEFT_OUTER_JOIN);
+        cri.createAlias("exp.customer", "customer", JoinType.LEFT_OUTER_JOIN);
         cri.add(Restrictions.ge("createdDate", Utils.stringDDMMYYY2Date(exp.getFromDate())));
         cri.add(Restrictions.le("createdDate", Utils.stringDDMMYYYHHMMSS2Date(exp.getToDate() + " 23:59:59")));
-        cri.add(Restrictions.like("customer.name", exp.getCustomerName().trim(), MatchMode.ANYWHERE));
+        if (!StringUtils.isEmpty(exp.getCustomerName())) {
+            cri.add(Restrictions.like("customer.name", exp.getCustomerName().trim(), MatchMode.ANYWHERE));
+        }
         cri.setProjection(Projections.rowCount());
         Long count = (Long) cri.uniqueResult();
         return Integer.valueOf(count.toString());
@@ -53,10 +56,14 @@ public class ExportDaoImpl implements ExportDao {
         cri.createAlias("exp.customer", "customer", JoinType.LEFT_OUTER_JOIN);
         cri.add(Restrictions.ge("createdDate", Utils.stringDDMMYYY2Date(exp.getFromDate())));
         cri.add(Restrictions.le("createdDate", Utils.stringDDMMYYYHHMMSS2Date(exp.getToDate() + " 23:59:59")));
-        cri.add(Restrictions.like("customer.name", exp.getCustomerName().trim(), MatchMode.ANYWHERE));
+        if (!StringUtils.isEmpty(exp.getCustomerName())) {
+            cri.add(Restrictions.like("customer.name", exp.getCustomerName().trim(), MatchMode.ANYWHERE));
+        }
         cri.addOrder(Order.desc("createdDate"));
-        cri.setFirstResult((exp.getPageCurrent() - 1) * exp.getPageSize());
-        cri.setMaxResults(exp.getPageSize());
+        if (exp.getPageCurrent() > 0) {
+            cri.setFirstResult((exp.getPageCurrent() - 1) * exp.getPageSize());
+            cri.setMaxResults(exp.getPageSize());
+        }
         List<Export> lst = cri.list();
         return lst;
     }
@@ -104,6 +111,17 @@ public class ExportDaoImpl implements ExportDao {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(emp);
         return emp.getId();
+    }
+
+    @Override
+    public int getCountFromTo(Export exp) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria cri = session.createCriteria(Export.class, "exp");
+        cri.add(Restrictions.ge("createdDate", Utils.stringDDMMYYY2Date(exp.getFromDate())));
+        cri.add(Restrictions.le("createdDate", Utils.stringDDMMYYYHHMMSS2Date(exp.getToDate())));
+        cri.setProjection(Projections.rowCount());
+        Long count = (Long) cri.uniqueResult();
+        return Integer.valueOf(count.toString());
     }
 
 }
