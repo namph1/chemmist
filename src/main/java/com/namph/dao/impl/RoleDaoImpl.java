@@ -11,12 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  *
@@ -60,7 +60,9 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public Roles getRoleById(Roles role) {
         Session session = this.sessionFactory.getCurrentSession();
-        return (Roles) session.get(Roles.class, role.getRoleId());
+        Roles roles = (Roles) session.get(Roles.class, role.getRoleId());
+        Hibernate.initialize(roles.getMenusAction());
+        return roles;
     }
 
     @Override
@@ -85,13 +87,21 @@ public class RoleDaoImpl implements RoleDao {
         Query query = session.createSQLQuery(" delete from tbl_role_menu where role_id = :roleId ")
                 .setParameter("roleId", role.getRoleId());
         query.executeUpdate();
+        
+        query = session.createSQLQuery(" delete from tbl_role_menu_action where role_id = :roleId ")
+                .setParameter("roleId", role.getRoleId());
+        query.executeUpdate();
+        
         Set<Integer> setMenuId = new HashSet<>();
+        Set<Integer> setMenuActionId = new HashSet<>();
         for (String strMenu : role.getLstIdsMenu()) {
             if (strMenu.matches("\\d+\\-\\d+")) {
                 setMenuId.add(Integer.valueOf(strMenu.split("-")[0]));
                 setMenuId.add(Integer.valueOf(strMenu.split("-")[1]));
-            } else if (strMenu.matches("\\d+\\-\\-\\d+")) {
+            } else if (strMenu.matches("\\d+\\-\\-\\d+\\-\\-\\d+")) {
                 setMenuId.add(Integer.valueOf(strMenu.split("--")[0]));
+                setMenuId.add(Integer.valueOf(strMenu.split("--")[1]));
+                setMenuActionId.add(Integer.valueOf(strMenu.split("--")[2]));
             }else{
                 setMenuId.add(Integer.valueOf(strMenu));
             }
@@ -100,6 +110,12 @@ public class RoleDaoImpl implements RoleDao {
         for (Integer menuId : setMenuId) {
             query = session.createSQLQuery("insert into tbl_role_menu(menu_id, role_id) value(:menuId,:roleId)")
                     .setParameter("menuId", menuId)
+                    .setParameter("roleId", role.getRoleId());
+            query.executeUpdate();
+        }
+         for (Integer menuActId : setMenuActionId) {
+            query = session.createSQLQuery("insert into tbl_role_menu_action(menu_action_id, role_id) value(:menuActId,:roleId)")
+                    .setParameter("menuActId", menuActId)
                     .setParameter("roleId", role.getRoleId());
             query.executeUpdate();
         }

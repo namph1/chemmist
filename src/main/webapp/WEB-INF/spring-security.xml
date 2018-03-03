@@ -16,8 +16,8 @@
         <intercept-url pattern="/logout" access="permitAll()" />
         <intercept-url pattern="/" access="isAuthenticated()" />
         <intercept-url pattern="/**" access="isAuthenticated()" />
-<!--        <custom-filter ref="accessFilter" 
-                       before="FILTER_SECURITY_INTERCEPTOR"/>-->
+        <!--        <custom-filter ref="accessFilter" 
+        before="FILTER_SECURITY_INTERCEPTOR"/>-->
         <access-denied-handler error-page="/403" />
  
         <form-login login-page='/login' login-processing-url="/j_spring_security_check"
@@ -28,9 +28,11 @@
  
         <logout logout-url="/logout" logout-success-url="/login" success-handler-ref=""
                 delete-cookies="JSESSIONID" invalidate-session="true" />
- 
+        <session-management>
+            <concurrency-control max-sessions="1" session-registry-alias="sessionRegistry"/>
+        </session-management>
     </http>
- 
+    
     <authentication-manager>
         <authentication-provider user-service-ref="myUserDetailsService" >
             <!--<password-encoder hash="bcrypt" />-->
@@ -41,6 +43,7 @@
     <beans:bean id="myAuthenticationSuccessHandler"
                 class="com.namph.service.MySimpleUrlAuthenticationSuccessHandler" >
         <beans:property name="menuDao" ref="menuDao" />
+        <beans:property name="roleDao" ref="roleDao" />
     </beans:bean>
     
     <beans:bean id="myUserDetailsService"
@@ -51,5 +54,8 @@
     
     <beans:bean id="accessFilter" class="com.namph.service.AccessFilter">
         
+    </beans:bean>    
+    <beans:bean id="sessionRegistry"
+                class="org.springframework.security.core.session.SessionRegistryImpl" >
     </beans:bean>
 </beans:beans>

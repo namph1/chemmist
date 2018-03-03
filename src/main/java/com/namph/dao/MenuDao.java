@@ -6,6 +6,7 @@
 package com.namph.dao;
 
 import com.namph.entity.Menu;
+import com.namph.entity.MenuAction;
 import java.util.List;
 import java.util.Set;
 
@@ -18,4 +19,7 @@ public interface MenuDao {
     List<Menu> getAllMenu();
 
     Set<Menu> getListMenuByRole(Integer roleId);
+    
+    List<MenuAction> getallActionMenu();
+    
 }

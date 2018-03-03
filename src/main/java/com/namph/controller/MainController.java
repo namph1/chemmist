@@ -16,6 +16,7 @@ import com.namph.entity.Product;
 import com.namph.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,8 @@ public class MainController {
     private MoneyDao moneyDao;
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    SessionRegistry sessionRegistry;
 
     public MessageSource getMessageSource() {
         return messageSource;
@@ -47,7 +50,6 @@ public class MainController {
         this.messageSource = messageSource;
     }
 
-    
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("titlePage", "Trang chủ");
@@ -61,8 +63,9 @@ public class MainController {
         money.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentMonth()));
         money.setType(1);
         model.addAttribute("sizeMoney", moneyDao.getTotal(money));
+//        model.addAttribute("sizeMoney", sessionRegistry.getAllPrincipals().size());
         model.addAttribute("sizeProduct", productDao.getCount(new Product(null, null, 1)));
-        
+
         return "home/home";
     }
 

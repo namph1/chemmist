@@ -111,12 +111,10 @@
                                                     </a>
                                                 </c:if>  
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <sec:authorize access="hasRole('ADMIN')">
                                                     <a class="btn" onclick="prepareAssign(${entity.userId}, '${entity.name}');"
                                                        data-toggle="collapse">
                                                         <i class="fa fa-share text-blue"></i>
                                                     </a>
-                                                </sec:authorize>
                                             </td>
                                         </tr>
                                     </c:if>

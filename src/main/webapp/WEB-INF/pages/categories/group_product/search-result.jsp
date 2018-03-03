@@ -17,7 +17,14 @@
                     <i class="fa fa-list"></i> Danh sách nhóm sản phẩm
                 </h3>
                 <div class="panel-title pull-right">
-                    <a onclick='prepareAdd();'><i class="fa fa-plus text-aqua">Thêm mới</i></a>
+                    <c:if test="${not empty lstAct}">
+                        <c:forEach items="${lstAct}" var="act">
+                            <c:if test="${act.id == 6}">
+                                <a onclick='prepareAdd();'><i class="fa fa-plus text-aqua">Thêm mới</i></a>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+
                 </div>
             </div>
 
@@ -52,9 +59,15 @@
                                                     </c:forEach>
                                                 </c:if>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <a onclick="prepareEdit(${entity.id}, '${entity.name}', '${entity.note}');" data-toggle="collapse">
-                                                    <i class="fa fa-pencil text-yellow"></i>
-                                                </a>
+                                                <c:if test="${not empty lstAct}">
+                                                    <c:forEach items="${lstAct}" var="act">
+                                                        <c:if test="${act.id == 2}">
+                                                            <a onclick="prepareEdit(${entity.id}, '${entity.name}', '${entity.note}');" data-toggle="collapse">
+                                                                <i class="fa fa-pencil text-yellow"></i>
+                                                            </a>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:if>
@@ -74,9 +87,15 @@
                                                     </c:forEach>
                                                 </c:if>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <a onclick="prepareEdit(${entity.id}, '${entity.name}', '${entity.note}');" data-toggle="collapse">
-                                                    <i class="fa fa-pencil text-yellow"></i>
-                                                </a>
+                                                <c:if test="${not empty lstAct}">
+                                                    <c:forEach items="${lstAct}" var="act">
+                                                        <c:if test="${act.id == 2}">
+                                                            <a onclick="prepareEdit(${entity.id}, '${entity.name}', '${entity.note}');" data-toggle="collapse">
+                                                                <i class="fa fa-pencil text-yellow"></i>
+                                                            </a>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:if>

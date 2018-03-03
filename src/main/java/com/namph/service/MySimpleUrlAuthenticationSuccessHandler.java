@@ -6,6 +6,7 @@
 package com.namph.service;
 
 import com.namph.dao.MenuDao;
+import com.namph.dao.RoleDao;
 import com.namph.entity.Menu;
 import com.namph.entity.MenuAction;
 import com.namph.entity.Roles;
@@ -39,6 +40,15 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     private MenuDao menuDao;
+    private RoleDao roleDao;
+
+    public RoleDao getRoleDao() {
+        return roleDao;
+    }
+
+    public void setRoleDao(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
 
     public MenuDao getMenuDao() {
         return menuDao;
@@ -60,21 +70,22 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
             HttpServletResponse response, Authentication authentication)
             throws IOException {
 
-        String targetUrl = determineTargetUrl(authentication);
         UserCustomImpl user = (UserCustomImpl) authentication.getPrincipal();
+        String targetUrl = determineTargetUrl(authentication, user);
         request.getSession().setAttribute("fullName", user.getUsers().getFullName());
         request.getSession().setAttribute("userName", user.getUsers().getName());
         request.getSession().setAttribute("createDate", user.getUsers().getStrCreateDate());
         request.getSession().setAttribute("positon", user.getUsers().getPosition());
         Set<Menu> setMenu = new HashSet<>();
+        List<MenuAction> lstMenuAction = new ArrayList<>();
         if (user.getUsers().getIsAdmin() == 1) {
             setMenu = new HashSet<>(menuDao.getAllMenu());
+            lstMenuAction.addAll(menuDao.getallActionMenu());
         } else {
-            List<MenuAction> lstMenuAction = new ArrayList<>();
             if (!user.getRoles().isEmpty()) {
                 for (Roles role : user.getRoles()) {
                     setMenu.addAll(menuDao.getListMenuByRole(role.getRoleId()));
-                    lstMenuAction.addAll(role.getMenusAction());
+                    lstMenuAction.addAll(roleDao.getRoleById(role).getMenusAction());
                 }
             }
             List<Menu> lstMenuChild = new ArrayList<>();
@@ -91,18 +102,18 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
                     lstMenuChild.add(menu);
                 }
             }
-            
+
             setMenu.clear();
-            for(Menu menu1: lstMenuParent){
-                for(Menu menu2: lstMenuChild){
-                    if(menu2.getMenu().getId().equals(menu1.getId())){
+            for (Menu menu1 : lstMenuParent) {
+                for (Menu menu2 : lstMenuChild) {
+                    if (menu2.getMenu().getId().equals(menu1.getId())) {
                         menu1.getListMenu().add(menu2);
                     }
                 }
                 setMenu.add(menu1);
             }
-             request.getSession().setAttribute("actionmenu", lstMenuAction);
         }
+        request.getSession().setAttribute("actionmenu", lstMenuAction);
         request.getSession().setAttribute("menu", Menu.sortByOrders(setMenu));
         if (response.isCommitted()) {
             logger.debug(
@@ -114,24 +125,27 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-    protected String determineTargetUrl(Authentication authentication) {
+    protected String determineTargetUrl(Authentication authentication, UserCustomImpl user) {
         boolean isUser = false;
         boolean isAdmin = false;
-        Collection<? extends GrantedAuthority> authorities
-                = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                isUser = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                isAdmin = true;
-                break;
-            } else {
-                isUser = true;
-                break;
+        if (user.getUsers().getIsAdmin() != null && user.getUsers().getIsAdmin() == 1) {
+            isAdmin = true;
+        } else {
+            Collection<? extends GrantedAuthority> authorities
+                    = authentication.getAuthorities();
+            for (GrantedAuthority grantedAuthority : authorities) {
+                if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+                    isUser = true;
+                    break;
+                } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+                    isAdmin = true;
+                    break;
+                } else {
+                    isUser = true;
+                    break;
+                }
             }
         }
-
         if (isUser) {
             return "/";
         } else if (isAdmin) {

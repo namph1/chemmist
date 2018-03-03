@@ -10,8 +10,10 @@ import com.google.gson.GsonBuilder;
 import com.namph.dao.MenuDao;
 import com.namph.dao.RoleDao;
 import com.namph.entity.Menu;
+import com.namph.entity.MenuAction;
 import com.namph.entity.Roles;
 import com.namph.model.Page;
+import com.namph.model.UserCustomImpl;
 import com.namph.utils.CONSTANT;
 import com.namph.utils.PageUtils;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,15 +86,23 @@ public class RoleController {
             produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView prepareAssign(HttpSession session, @RequestBody Roles role, Model model) {
         Set<Menu> setMenuOfRole = menuDao.getListMenuByRole(role.getRoleId());
+        Set<MenuAction> setActionOfRole = roleDao.getRoleById(role).getMenusAction();
         List<Menu> allmenu = menuDao.getAllMenu();
         model.addAttribute("allMenu", allmenu);
-        List<Integer> lstIds = new ArrayList<Integer>();
+        List<String> lstIds = new ArrayList<>();
+        List<String> lstIdsAct = new ArrayList<>();
         if (!setMenuOfRole.isEmpty()) {
             for (Menu menu : setMenuOfRole) {
-                lstIds.add(menu.getId());
+                lstIds.add(menu.getId().toString());
+            }
+        }
+        if (!setActionOfRole.isEmpty()) {
+            for (MenuAction act : setActionOfRole) {
+                lstIdsAct.add(act.getMenus().getMenu().getId() + "--" + act.getMenus().getId() + "--" + act.getId());
             }
         }
         model.addAttribute("menus", new Gson().toJson(lstIds));
+        model.addAttribute("acts", new Gson().toJson(lstIdsAct));
 
         return new ModelAndView("categories/role/assign");
     }
@@ -102,7 +113,7 @@ public class RoleController {
         String result = "";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
-            if(!role.getLstIdsMenu().isEmpty()){
+            if (!role.getLstIdsMenu().isEmpty()) {
                 roleDao.assignMenu(role);
             }
             result = CONSTANT.SUCCESS;

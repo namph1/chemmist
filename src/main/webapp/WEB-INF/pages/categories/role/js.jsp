@@ -97,19 +97,14 @@
             $('#objectConfig').modal('show');
             $('#roleId').val(id);
             $("#treeview").hummingbird();
-            $("#treeview").hummingbird("expandAll");
-//            $.fn.hummingbird.defaults.collapsedSymbol = "fa-arrow-circle-o-right";
-//            $.fn.hummingbird.defaults.expandedSymbol = "fa-arrow-circle-o-down";
             $.fn.hummingbird.defaults.checkDoubles= true; 
-            $("#expandAll").click(function () {
-                $("#treeview").hummingbird("expandAll");
-            });
             var ids = JSON.parse($('#ids').val());
-            if (ids.length > 0) {
-                for (var i in ids) {
+            var idsAct = JSON.parse($('#idsAct').val());
+            if (idsAct.length > 0) {
+                for (var i in idsAct) {
                     $("#treeview").hummingbird("checkNode", {
                         attr: "id",
-                        name: ids[i].toString()
+                        name: idsAct[i]
                     });
                 }
             }

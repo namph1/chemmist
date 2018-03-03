@@ -23,7 +23,8 @@
             <div class="modal-body">
                 <div class="form-group table-responsive">
                     <input type="hidden" id="roleId"/>
-                    <input type="hidden" value="${menus}" id="ids"/>
+                    <input type="hidden" value='${menus}' id="ids"/>
+                    <input type="hidden" value='${acts}' id="idsAct"/>
                     <div id="divTbl2">
                         <div id="treeview_container" class="hummingbird-treeview well h-scroll-large">
                             <ul id="treeview" class="hummingbird-base">
@@ -50,8 +51,8 @@
                                                                     <li>
                                                                         <label>
                                                                             <input class="hummingbirdNoParent" 
-                                                                                   id="${menuChild.id}--${menuAction.id}"
-                                                                                   data-id="${menuChild.id}-${menuAction.id}" type="checkbox" />
+                                                                                   id="${menu.id}--${menuChild.id}--${menuAction.id}"
+                                                                                   data-id="${menu.id}--${menuChild.id}--${menuAction.id}" type="checkbox" />
                                                                             <i class="${menuAction.icon}"></i>
                                                                             ${menuAction.name}</label>
                                                                     </li>

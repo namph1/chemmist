@@ -31,9 +31,16 @@
                     </div>
                     <div class="row">
                         <div class="col col-md-3">
-                            <button class="btn btn-primary btn-flat" id="btnSearch" onclick="onSearch(1);">
-                                <i class="fa fa-search">Tìm kiếm</i>
-                            </button>
+                            <c:if test="${not empty lstAct}">
+                                <c:forEach items="${lstAct}" var="act">
+                                    <c:if test="${act.id == 5}">
+                                        <button class="btn btn-primary btn-flat" id="btnSearch" onclick="onSearch(1);">
+                                            <i class="fa fa-search">Tìm kiếm</i>
+                                        </button>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+
                         </div>
                     </div>
                 </div>

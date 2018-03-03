@@ -50,6 +50,7 @@ public class GroupProductController {
         List<MenuAction> lstMenuAction = new ArrayList<>();
         lstMenuAction = (List<MenuAction>) request.getSession().getAttribute("actionmenu");
         if (lstMenuAction != null && !lstMenuAction.isEmpty()) {
+            lstAct.clear();
             for (MenuAction action : lstMenuAction) {
                 if (("/" + action.getMenus().getUrl()).equals(pattern)) {
                     lstAct.add(action);

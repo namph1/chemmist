@@ -7,6 +7,7 @@ package com.namph.dao.impl;
 
 import com.namph.dao.MenuDao;
 import com.namph.entity.Menu;
+import com.namph.entity.MenuAction;
 import com.namph.entity.Roles;
 import java.util.List;
 import java.util.Set;
@@ -57,6 +58,14 @@ public class MenuDaoImpl implements MenuDao {
             }
         }
         return role.getMenus();
+    }
+
+    @Override
+    public List<MenuAction> getallActionMenu() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria cri = session.createCriteria(MenuAction.class);
+        List<MenuAction> lst = cri.list();
+        return lst;
     }
 
 }
