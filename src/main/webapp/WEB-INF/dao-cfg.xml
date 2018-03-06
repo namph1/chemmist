@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+">
+    <bean id="unitDao" class="com.namph.dao.impl.UnitDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="userDao" class="com.namph.dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="roleDao" class="com.namph.dao.impl.RoleDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="productDao" class="com.namph.dao.impl.ProductDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="gProductDao" class="com.namph.dao.impl.GroupDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="customerDao" class="com.namph.dao.impl.CustomerDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="importDao" class="com.namph.dao.impl.ImportDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="exportDao" class="com.namph.dao.impl.ExportDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="moneyDao" class="com.namph.dao.impl.MoneyDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="menuDao" class="com.namph.dao.impl.MenuDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+    <bean id="tonkhoDao" class="com.namph.dao.impl.TonKhoDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+</beans>
