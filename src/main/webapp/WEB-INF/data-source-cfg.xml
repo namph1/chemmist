@@ -6,13 +6,12 @@
     <bean id="myDataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223275?characterEncoding=UTF-8" />
-        <property name="username" value="sql3223275" />
-        <property name="password" value="cz5GGSfFDU" />
-        
 <!--        <property name="url" value="jdbc:mysql://db4free.net:3306/chemmist?characterEncoding=UTF-8" />
         <property name="username" value="namph" />
         <property name="password" value="123456a@" />-->
+         <property name="url" value="jdbc:mysql://125.212.227.42:3306/bach_db?characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="toor" />
         
 <!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/chemmist?characterEncoding=UTF-8" />
         <property name="username" value="root" />
