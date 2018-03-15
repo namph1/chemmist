@@ -36,38 +36,89 @@ public class TonKhoDaoImpl extends PagingModel implements TonKhoDao {
 
     @Override
     public List<TonKho> getListTonKho(String from, String to) {
+        StringBuilder sb = new StringBuilder(" SELECT ");
+        sb.append(" SUM(TEMP_XUAT_NHAP.\"COUNT\") AS \"SL_TON\", ");
+        sb.append(" TEMP_XUAT_NHAP.\"PRODUCT_ID\", PRO.\"NAME\" AS \"TEN_SP\", UNI.\"NAME\" AS \"DONVI\", PRO.\"CODE\" AS \"MA_SP\",PRO.\"WEIGHT\" AS \"KHOILUONG\", ");
+        sb.append(" COALESCE((SELECT SUM(\"COUNT\") FROM tbl_import_detail WHERE \"PRODUCT_ID\" = TEMP_XUAT_NHAP.\"PRODUCT_ID\"),0) AS \"SL_NHAP\", ");
+        sb.append(" COALESCE((SELECT SUM(\"COUNT\") FROM tbl_export_detail WHERE \"PRODUCT_ID\" = TEMP_XUAT_NHAP.\"PRODUCT_ID\"),0) AS \"SL_XUAT\" ");
+        sb.append(" FROM ");
+        sb.append(" ( ");
+        sb.append(" SELECT impd.\"COUNT\", impd.\"PRODUCT_ID\" ");
+        sb.append(" FROM tbl_import_detail impd ");
+        sb.append(" UNION ALL ");
+        sb.append(" SELECT -(expd.\"COUNT\") \"COUNT\", expd.\"PRODUCT_ID\" ");
+        sb.append(" FROM tbl_export_detail expd ");
+        sb.append(" ) AS TEMP_XUAT_NHAP ");
+        sb.append(" LEFT JOIN tbl_product PRO ");
+        sb.append(" ON PRO.\"ID\" = TEMP_XUAT_NHAP.\"PRODUCT_ID\" ");
+        sb.append(" JOIN tbl_unit UNI ON UNI.\"ID\" = PRO.\"UNIT_ID\" ");
+        sb.append(" GROUP BY TEMP_XUAT_NHAP.\"PRODUCT_ID\",PRO.\"NAME\",UNI.\"NAME\",PRO.\"CODE\",PRO.\"WEIGHT\" ");
+        
+        
         List<TonKho> lstResult = new ArrayList<TonKho>();
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createSQLQuery("CALL get_tonkho_bymonth(:from, :to)")
-                .addScalar("productId", StandardBasicTypes.INTEGER)
-                .addScalar("count", StandardBasicTypes.INTEGER)
-                .addScalar("productName", StandardBasicTypes.STRING)
-                .addScalar("productCode", StandardBasicTypes.STRING)
-                .addScalar("unitName", StandardBasicTypes.STRING)
-                .addScalar("weight", StandardBasicTypes.FLOAT)
-                .addScalar("sanluong", StandardBasicTypes.FLOAT)
-                .addScalar("sanluongxuat", StandardBasicTypes.FLOAT)
-                .addScalar("tondauky", StandardBasicTypes.FLOAT)
-                .setParameter("from", Utils.stringDDMMYYY2Date(from))
-                .setParameter("to", Utils.stringDDMMYYY2Date(to));
+        Query query = session.createSQLQuery(sb.toString())
+                .addScalar("PRODUCT_ID", StandardBasicTypes.INTEGER)
+                .addScalar("SL_TON", StandardBasicTypes.INTEGER)
+                .addScalar("TEN_SP", StandardBasicTypes.STRING)
+                .addScalar("MA_SP", StandardBasicTypes.STRING)
+                .addScalar("DONVI", StandardBasicTypes.STRING)
+                .addScalar("KHOILUONG", StandardBasicTypes.FLOAT)
+                .addScalar("SL_NHAP", StandardBasicTypes.FLOAT)
+                .addScalar("SL_XUAT", StandardBasicTypes.FLOAT);
+//                .addScalar("tondauky", StandardBasicTypes.FLOAT)
+//                .setParameter("from", Utils.stringDDMMYYY2Date(from))
+//                .setParameter("to", Utils.stringDDMMYYY2Date(to));
         List result = query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
         if (!result.isEmpty()) {
             for (int i = 0; i < result.size(); i++) {
                 TonKho obj = new TonKho();
                 Map map = (Map) result.get(i);
-                obj.setCount((Integer) map.get("count"));
-                obj.setProductId((Integer) map.get("productId"));
-                obj.setProductCode(map.get("productCode").toString());
-                obj.setProductName(map.get("productName").toString());
-                obj.setUnitName(map.get("unitName").toString());
-                obj.setWeight(((Float) map.get("weight")));
-                obj.setSanluong((Float) map.get("sanluong"));
-                obj.setSanluongXuat((Float) map.get("sanluongxuat"));
-                obj.setTondauky((Float) map.get("tondauky"));
+                obj.setCount((Integer) map.get("SL_TON"));
+                obj.setProductId((Integer) map.get("PRODUCT_ID"));
+                obj.setProductCode(map.get("MA_SP").toString());
+                obj.setProductName(map.get("TEN_SP").toString());
+                obj.setUnitName(map.get("DONVI").toString());
+                obj.setWeight(((Float) map.get("KHOILUONG")));
+                obj.setSanluong((Float) map.get("SL_NHAP"));
+                obj.setSanluongXuat((Float) map.get("SL_XUAT"));
+                obj.setTondauky((Float) map.get("SL_XUAT"));
                 lstResult.add(obj);
             }
         }
         return lstResult;
+//        List<TonKho> lstResult = new ArrayList<TonKho>();
+//        Session session = this.sessionFactory.getCurrentSession();
+//        Query query = session.createSQLQuery("CALL get_tonkho_bymonth(:from, :to)")
+//                .addScalar("productId", StandardBasicTypes.INTEGER)
+//                .addScalar("count", StandardBasicTypes.INTEGER)
+//                .addScalar("productName", StandardBasicTypes.STRING)
+//                .addScalar("productCode", StandardBasicTypes.STRING)
+//                .addScalar("unitName", StandardBasicTypes.STRING)
+//                .addScalar("weight", StandardBasicTypes.FLOAT)
+//                .addScalar("sanluong", StandardBasicTypes.FLOAT)
+//                .addScalar("sanluongxuat", StandardBasicTypes.FLOAT)
+//                .addScalar("tondauky", StandardBasicTypes.FLOAT)
+//                .setParameter("from", Utils.stringDDMMYYY2Date(from))
+//                .setParameter("to", Utils.stringDDMMYYY2Date(to));
+//        List result = query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+//        if (!result.isEmpty()) {
+//            for (int i = 0; i < result.size(); i++) {
+//                TonKho obj = new TonKho();
+//                Map map = (Map) result.get(i);
+//                obj.setCount((Integer) map.get("count"));
+//                obj.setProductId((Integer) map.get("productId"));
+//                obj.setProductCode(map.get("productCode").toString());
+//                obj.setProductName(map.get("productName").toString());
+//                obj.setUnitName(map.get("unitName").toString());
+//                obj.setWeight(((Float) map.get("weight")));
+//                obj.setSanluong((Float) map.get("sanluong"));
+//                obj.setSanluongXuat((Float) map.get("sanluongxuat"));
+//                obj.setTondauky((Float) map.get("tondauky"));
+//                lstResult.add(obj);
+//            }
+//        }
+//        return lstResult;
     }
 
     @Override
@@ -239,14 +290,14 @@ public class TonKhoDaoImpl extends PagingModel implements TonKhoDao {
 
     @Override
     public List<CongNo> getSanLuongOfProvince(String from, String to, Integer provinceId, Integer areaId) {
-         List<CongNo> lstResult = new ArrayList<CongNo>();
-         StringBuilder sb = new StringBuilder();
-         if(null == areaId){
-             sb.append(" CALL get_sanluong_province(:from, :to,:provinceId) ");
-         }else{
-              sb.append(" CALL get_sanluong_area(:from, :to,:provinceId) ");
-         }
-         
+        List<CongNo> lstResult = new ArrayList<CongNo>();
+        StringBuilder sb = new StringBuilder();
+        if (null == areaId) {
+            sb.append(" CALL get_sanluong_province(:from, :to,:provinceId) ");
+        } else {
+            sb.append(" CALL get_sanluong_area(:from, :to,:provinceId) ");
+        }
+
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createSQLQuery(sb.toString())
                 .addScalar("id", StandardBasicTypes.INTEGER)
@@ -254,7 +305,7 @@ public class TonKhoDaoImpl extends PagingModel implements TonKhoDao {
                 .addScalar("total", StandardBasicTypes.FLOAT)
                 .setParameter("from", Utils.stringDDMMYYY2Date(from))
                 .setParameter("to", Utils.stringDDMMYYY2Date(to))
-                .setParameter("provinceId", provinceId == -1 ? null: provinceId);
+                .setParameter("provinceId", provinceId == -1 ? null : provinceId);
         List result = query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
         if (!result.isEmpty()) {
             for (int i = 0; i < result.size(); i++) {
@@ -267,7 +318,7 @@ public class TonKhoDaoImpl extends PagingModel implements TonKhoDao {
             }
         }
         return lstResult;
-        
+
     }
 
 }
