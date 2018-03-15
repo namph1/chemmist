@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +36,8 @@ import javax.persistence.Transient;
 public class Export extends PagingModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "export_seq")
+    @SequenceGenerator(name="export_seq", sequenceName = "tbl_export_ID_seq", allocationSize=50)
     @Column(name = "ID")
     private Integer id;
     @Column(name = "NO")

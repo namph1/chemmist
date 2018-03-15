@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,7 +29,8 @@ import javax.persistence.Transient;
 public class Unit extends PagingModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unit_seq")
+    @SequenceGenerator(name = "unit_seq", sequenceName = "tbl_unit_ID_seq", allocationSize = 50)
     @Column(name = "ID")
     private Integer id;
     @Column(name = "NAME", nullable = true)
