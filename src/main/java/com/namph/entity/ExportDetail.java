@@ -30,27 +30,27 @@ public class ExportDetail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "count")
+    @Column(name = "COUNT")
     private Float count;
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate = new Date();
-    @Column(name = "price")
+    @Column(name = "PRICE")
     private Float price;
     @Column(name = "WEIGHT")
     private Float weight;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "EXPORT_ID", nullable = false)
+    @JoinColumn(name = "\"EXPORT_ID\"", nullable = false)
     private Export exp;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+    @JoinColumn(name = "\"PRODUCT_ID\"", nullable = false)
     private Product product;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "UNIT_ID", nullable = false)
+    @JoinColumn(name = "\"UNIT_ID\"", nullable = false)
     private Unit unit;
 
     public Float getWeight() {

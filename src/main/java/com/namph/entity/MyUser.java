@@ -36,7 +36,7 @@ public class MyUser extends PagingModel implements Serializable {
 
     @Id
     @Column(name = "ID", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
 
     @Column(name = "USER_NAME", unique = true, nullable = false, length = 32)
@@ -73,8 +73,8 @@ public class MyUser extends PagingModel implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_user_role",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+            joinColumns = @JoinColumn(name = "\"USER_ID\""),
+            inverseJoinColumns = @JoinColumn(name = "\"ROLE_ID\"")
     )
     private Set<Roles> roles = new HashSet<>();
 

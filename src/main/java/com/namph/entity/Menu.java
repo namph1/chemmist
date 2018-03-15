@@ -35,16 +35,16 @@ public class Menu extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
-    @Column(name = "url")
+    @Column(name = "URL")
     private String url;
     @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
     private List<Menu> listMenu = new ArrayList<Menu>();
     @ManyToOne
-    @JoinColumn(name = "PARENT_ID", nullable = true)
+    @JoinColumn(name = "\"PARENT_ID\"", nullable = true)
     private Menu menu;
 
     @Column(name = "ORDERS")

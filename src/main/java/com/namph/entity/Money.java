@@ -31,23 +31,23 @@ public class Money extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "type", nullable = false, length = 1)
+    @Column(name = "TYPE", nullable = false, length = 1)
     private Integer type;
-    @Column(name = "total", nullable = false)
+    @Column(name = "TOTAL", nullable = false)
     private Float total;
-    @Column(name = "note")
+    @Column(name = "NOTE")
     private String note;
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @Column(name = "status", nullable = false, length = 1)
+    @Column(name = "STATUS", nullable = false, length = 1)
     private Integer status;
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID", nullable = true)
+    @JoinColumn(name = "\"CUSTOMER_ID\"", nullable = true)
     private Customer customer;
-    @Column(name = "no")
+    @Column(name = "NO")
     private Integer no;
 
     @Transient

@@ -33,23 +33,23 @@ public class Customer extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "code")
+    @Column(name = "CODE")
     private String code;
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
-    @Column(name = "facebook")
+    @Column(name = "FACEBOOK")
     private String facebook;
-    @Column(name = "address")
+    @Column(name = "ADDRESS")
     private String address;
-    @Column(name = "phone")
+    @Column(name = "PHONE")
     private String phone;
     @Column(name = "LEVEL")
     private Integer level;
     @Column(name = "TYPE")
     private Integer type;
-    @Column(name = "status")
+    @Column(name = "STATUS")
     private Integer status;
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)

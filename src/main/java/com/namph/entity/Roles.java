@@ -46,16 +46,16 @@ public class Roles extends PagingModel implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_role_menu",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_id")
+            joinColumns = @JoinColumn(name = "\"role_id\""),
+            inverseJoinColumns = @JoinColumn(name = "\"menu_id\"")
     )
     private Set<Menu> menus = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_role_menu_action",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_action_id")
+            joinColumns = @JoinColumn(name = "\"role_id\""),
+            inverseJoinColumns = @JoinColumn(name = "\"menu_action_id\"")
     )
     private Set<MenuAction> menusAction = new HashSet<>();
 

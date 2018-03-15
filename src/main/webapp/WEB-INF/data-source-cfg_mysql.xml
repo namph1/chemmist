@@ -5,10 +5,17 @@
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
     <bean id="myDataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://ec2-79-125-110-209.eu-west-1.compute.amazonaws.com:5432/deaj2u51cs8dqj?sslmode=require" />
-        <property name="username" value="akujisgpxwyggw" />
-        <property name="password" value="d6895c6799f4f2f5ceacede3bcd6f5dc9e1ead345359be0b31b0a34076dfae50" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://db4free.net:3306/chemmist?characterEncoding=UTF-8" />
+        <property name="username" value="namph" />
+        <property name="password" value="123456a@" />
+<!--         <property name="url" value="jdbc:mysql://125.212.227.42:3336/bach_db?characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="toor" />-->
+        
+<!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/chemmist?characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />-->
     </bean>
     <bean id="mySessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -34,11 +41,8 @@
  
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">com.namph.utils.MyPostgreSQL82Dialect</prop>
-                <prop key="hibernate.globally_quoted_identifiers">true</prop>
-                <!--<property name="hibernate.globally_quoted_identifiers" value="true"/>-->
-<!--                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>-->
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.connection.CharSet">utf8</prop>
                 <prop key="hibernate.connection.characterEncoding">utf8</prop>
                 <prop key="hibernate.connection.useUnicode">true</prop>

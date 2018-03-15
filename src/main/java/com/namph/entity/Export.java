@@ -36,30 +36,30 @@ public class Export extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "no")
+    @Column(name = "NO")
     private Integer no;
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate = new Date();
-    @Column(name = "total")
+    @Column(name = "TOTAL")
     private Float total;
-    @Column(name = "weight")
+    @Column(name = "WEIGHT")
     private Float weight;
     @Column(name = "DISCOUNT")
     private Float discount;
     @Column(name = "TOTAL_LAST")
     private Float totalLast;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "\"CUSTOMER_ID\"", nullable = false)
     private Customer customer;
 
     @OneToMany(mappedBy = "exp", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ExportDetail> lstDetail = new ArrayList<ExportDetail>();
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "\"USER_ID\"", nullable = true)
     private MyUser users;
 
     @Transient

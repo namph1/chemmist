@@ -33,7 +33,7 @@ public class MenuAction extends PagingModel implements Serializable{
     private String icon;
     
     @ManyToOne
-    @JoinColumn(name = "menu_id", nullable = true)
+    @JoinColumn(name = "\"menu_id\"", nullable = true)
     private Menu menus;
 
     public Integer getId() {

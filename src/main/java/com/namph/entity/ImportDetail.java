@@ -30,22 +30,22 @@ public class ImportDetail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "count")
+    @Column(name = "COUNT")
     private Float count;
-    @Column(name = "price")
+    @Column(name = "PRICE")
     private Float price;
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate = new Date();
-    @Column(name = "type")
+    @Column(name = "TYPE")
     private Integer type = 1;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "IMPORT_ID", nullable = false)
+    @JoinColumn(name = "\"IMPORT_ID\"", nullable = false)
     private Import imp;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+    @JoinColumn(name = "\"PRODUCT_ID\"", nullable = false)
     private Product product;
 
     public Integer getId() {

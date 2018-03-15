@@ -34,36 +34,36 @@ public class Product extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "code")
+    @Column(name = "CODE")
     private String code;
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
-    @Column(name = "note")
+    @Column(name = "NOTE")
     private String note;
-    @Column(name = "price")
+    @Column(name = "PRICE")
     private Float price;
     @Column(name = "PRICE_AU")
     private Float priceAu;
-    @Column(name = "status")
+    @Column(name = "STATUS")
     private Integer status;
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private Integer userId;
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Column(name = "WEIGHT")
     private Float weight;
-    @Column(name = "image")
+    @Column(name = "IMAGE")
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "UNIT_ID", nullable = false)
+    @JoinColumn(name = "\"UNIT_ID\"", nullable = false)
     private Unit unit;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCT_TYPE_ID", nullable = false)
+    @JoinColumn(name = "\"PRODUCT_TYPE_ID\"", nullable = false)
     private GroupProduct group;
 
     @OneToMany(mappedBy = "product")

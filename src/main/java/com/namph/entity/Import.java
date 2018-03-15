@@ -36,9 +36,9 @@ public class Import extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "no")
+    @Column(name = "NO")
     private Integer no;
     @Column(name = "WEIGHT")
     private Float weight;
@@ -57,11 +57,11 @@ public class Import extends PagingModel implements Serializable {
     private Float total;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "\"CUSTOMER_ID\"", nullable = false)
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "\"USER_ID\"", nullable = true)
     private MyUser users;
 
     @Transient

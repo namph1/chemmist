@@ -29,11 +29,11 @@ public class Unit extends PagingModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
-    @Column(name = "name", nullable = true)
+    @Column(name = "NAME", nullable = true)
     private String name;
-    @Column(name = "note", nullable = true)
+    @Column(name = "NOTE", nullable = true)
     private String note;
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
     private List<Product> lstProduct = new ArrayList<Product>();
