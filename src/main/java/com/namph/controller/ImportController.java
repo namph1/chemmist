@@ -55,6 +55,7 @@ public class ImportController {
     public String init(Model model) {
         List<Customer> lstCustomer = customerDao.getListCustomer(new Customer(null, null, null, 1, 2));
         model.addAttribute("lstCustomer", lstCustomer);
+        model.addAttribute("titlePage", "Nhập hàng");
         return "khohang/nhapkho/view";
     }
 

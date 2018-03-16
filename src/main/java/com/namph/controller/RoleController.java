@@ -13,7 +13,6 @@ import com.namph.entity.Menu;
 import com.namph.entity.MenuAction;
 import com.namph.entity.Roles;
 import com.namph.model.Page;
-import com.namph.model.UserCustomImpl;
 import com.namph.utils.CONSTANT;
 import com.namph.utils.PageUtils;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +44,7 @@ public class RoleController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
+         model.addAttribute("titlePage", "Nhóm quyền");
         return "categories/role/view";
     }
 

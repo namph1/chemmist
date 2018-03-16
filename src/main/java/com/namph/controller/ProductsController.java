@@ -48,6 +48,7 @@ public class ProductsController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
+         model.addAttribute("titlePage", "Sản phẩm");
         model.addAttribute("lblTitle", "Thêm mới sản phẩm");
         model.addAttribute("lstUnit", unitDao.getListUnit(new Unit()));
         model.addAttribute("lstType", gProductDao.getListProduct(new GroupProduct()));

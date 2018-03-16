@@ -58,6 +58,7 @@ public class ExportController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
+        model.addAttribute("titlePage", "Bán hàng");
         return "banhang/xuathang/view";
     }
 

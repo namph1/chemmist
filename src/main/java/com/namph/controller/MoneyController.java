@@ -42,6 +42,7 @@ public class MoneyController {
     public String initCash(Model model) {
         List<Customer> lstCus = customerDao.getListCustomer(new Customer(null, 1));
         model.addAttribute("lstCust", lstCus);
+         model.addAttribute("titlePage", "Tài chính");
         return "taichinh/cash/view";
     }
 

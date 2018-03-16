@@ -45,6 +45,7 @@ public class CustomerController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
+        model.addAttribute("titlePage", "Khách hàng- Đại lý");
         return "categories/customer/view";
     }
 

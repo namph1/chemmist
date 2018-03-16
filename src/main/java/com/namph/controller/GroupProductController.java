@@ -58,6 +58,7 @@ public class GroupProductController {
             }
         }
         model.addAttribute("lstAct", lstAct);
+        model.addAttribute("titlePage", "Nhóm sản phẩm");
         return "categories/group_product/view";
     }
 

@@ -38,6 +38,7 @@ public class UnitController {
     public String init(Model model) {
         List<Unit> lstUnit = unitDao.getListUnit(new Unit());
         model.addAttribute("listUnit", lstUnit);
+         model.addAttribute("titlePage", "Đơn vị");
         return "categories/unit/view";
     }
 

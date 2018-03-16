@@ -39,6 +39,7 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
+         model.addAttribute("titlePage", "Người dùng");
         return "categories/user/view";
     }
 
