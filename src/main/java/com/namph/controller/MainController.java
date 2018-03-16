@@ -62,8 +62,11 @@ public class MainController {
         money.setFromDate(Utils.Date2DDMMYYYYH24MI(Utils.getFirstDayOfCurrentMonth(true)));
         money.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentMonth()));
         money.setType(1);
+        money.setStatus(0);
         model.addAttribute("sizeMoney", moneyDao.getTotal(money));
-//        model.addAttribute("sizeMoney", sessionRegistry.getAllPrincipals().size());
+        money.setStatus(1);
+        model.addAttribute("sizeMoney2", moneyDao.getTotal(money));
+        model.addAttribute("sizeOline", sessionRegistry.getAllPrincipals().size());
         model.addAttribute("sizeProduct", productDao.getCount(new Product(null, null, 1)));
 
         return "home/home";

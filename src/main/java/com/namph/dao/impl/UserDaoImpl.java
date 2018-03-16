@@ -120,13 +120,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void assignRole(MyUser users) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createSQLQuery(" delete from tbl_user_role where user_id = :userId ").setParameter("userId", users.getUserId());
+        Query query = session.createSQLQuery(" delete from tbl_user_role where \"USER_ID\" = :userId ").setParameter("userId", users.getUserId());
         query.executeUpdate();
         if (!StringUtils.isEmpty(users.getStrRoleId())) {
             String[] arr = users.getStrRoleId().split(",");
             if (arr.length > 0) {
                 for (String strCus : arr) {
-                    query = session.createSQLQuery("insert into tbl_user_role(user_id, role_id) value(:userId,:roleId)")
+                    query = session.createSQLQuery("insert into tbl_user_role(\"USER_ID\", \"ROLE_ID\") VALUES(:userId,:roleId)")
                             .setParameter("userId", users.getUserId())
                             .setParameter("roleId", Integer.parseInt(strCus));
                     query.executeUpdate();

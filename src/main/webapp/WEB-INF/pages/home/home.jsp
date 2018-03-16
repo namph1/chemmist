@@ -75,12 +75,40 @@
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3><fmt:formatNumber type = "number" minFractionDigits="0" maxFractionDigits="2" value = "${sizeMoney}" /><sup style="font-size: 20px">VNĐ</sup></h3>
+                    <h3><fmt:formatNumber type = "number" minFractionDigits="0" maxFractionDigits="2" value = "${sizeMoney}" /></h3>
 
-                    <p>Doanh thu</p>
+                    <p>Doanh thu(VNĐ)</p>
                 </div>
                 <div class="icon" style="top: 5px;">
                     <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="<%=request.getContextPath()%>/cash" class="small-box-footer">Đi tiếp <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-gray-active">
+                <div class="inner">
+                    <h3><fmt:formatNumber type = "number" minFractionDigits="0" maxFractionDigits="2" value = "${sizeMoney2}" /></h3>
+
+                    <p>Chi phí(VNĐ)</p>
+                </div>
+                <div class="icon" style="top: 5px;">
+                    <i class="ion ion-paper-airplane"></i>
+                </div>
+                <a href="<%=request.getContextPath()%>/cash" class="small-box-footer">Đi tiếp <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-teal-active">
+                <div class="inner">
+                    <h3><fmt:formatNumber type = "number" minFractionDigits="0" maxFractionDigits="2" value = "${sizeOline}" /></h3>
+
+                    <p>Người dùng đang truy cập</p>
+                </div>
+                <div class="icon" style="top: 5px;">
+                    <i class="ion ion-ios-contact"></i>
                 </div>
                 <a href="<%=request.getContextPath()%>/cash" class="small-box-footer">Đi tiếp <i class="fa fa-arrow-circle-right"></i></a>
             </div>

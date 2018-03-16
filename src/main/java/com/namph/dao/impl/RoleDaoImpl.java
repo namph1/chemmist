@@ -84,11 +84,11 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public void assignMenu(Roles role) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createSQLQuery(" delete from tbl_role_menu where role_id = :roleId ")
+        Query query = session.createSQLQuery(" delete from tbl_role_menu where \"role_id\" = :roleId ")
                 .setParameter("roleId", role.getRoleId());
         query.executeUpdate();
         
-        query = session.createSQLQuery(" delete from tbl_role_menu_action where role_id = :roleId ")
+        query = session.createSQLQuery(" delete from tbl_role_menu_action where \"role_id\" = :roleId ")
                 .setParameter("roleId", role.getRoleId());
         query.executeUpdate();
         
@@ -108,13 +108,13 @@ public class RoleDaoImpl implements RoleDao {
         }
 
         for (Integer menuId : setMenuId) {
-            query = session.createSQLQuery("insert into tbl_role_menu(menu_id, role_id) value(:menuId,:roleId)")
+            query = session.createSQLQuery("insert into tbl_role_menu(\"menu_id\", \"role_id\") VALUES(:menuId,:roleId)")
                     .setParameter("menuId", menuId)
                     .setParameter("roleId", role.getRoleId());
             query.executeUpdate();
         }
          for (Integer menuActId : setMenuActionId) {
-            query = session.createSQLQuery("insert into tbl_role_menu_action(menu_action_id, role_id) value(:menuActId,:roleId)")
+            query = session.createSQLQuery("insert into tbl_role_menu_action(\"menu_action_id\", \"role_id\") VALUES(:menuActId,:roleId)")
                     .setParameter("menuActId", menuActId)
                     .setParameter("roleId", role.getRoleId());
             query.executeUpdate();
