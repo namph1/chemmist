@@ -14,7 +14,7 @@
 
     <context:component-scan base-package="com.namph"/>
 
-<!--    <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
+    <!--    <bean id="viewResolver1" class="org.springframework.web.servlet.view.XmlViewResolver">
         <property name="order" value="1"/>
         <property name="location" value="/WEB-INF/views.xml"/>
     </bean>-->
@@ -32,5 +32,9 @@
     <mvc:annotation-driven />
     <context:component-scan base-package="com.namph.controller.*" />
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-
+    <bean id="multipartResolver"
+           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1000000"/>
+        <property name="maxUploadSizePerFile" value="200000"/>
+    </bean>
 </beans>

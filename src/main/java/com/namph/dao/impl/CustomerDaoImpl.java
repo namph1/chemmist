@@ -8,7 +8,6 @@ package com.namph.dao.impl;
 import com.namph.dao.CustomerDao;
 import com.namph.entity.Customer;
 import com.namph.utils.Utils;
-import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

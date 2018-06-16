@@ -13,15 +13,16 @@ import java.util.List;
  * @author namph
  */
 public interface RoleDao {
+
     List<Roles> getListRoles(Roles role);
-    
+
     int getCount(Roles role);
-    
+
     Roles getRoleById(Roles role);
-    
+
     int insertRole(Roles role);
-    
+
     int updateRole(Roles role);
-    
-     void assignMenu(Roles role);
+
+    void assignMenu(Roles role);
 }

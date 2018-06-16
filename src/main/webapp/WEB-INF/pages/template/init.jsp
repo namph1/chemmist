@@ -61,8 +61,11 @@
     <script src="${pageContext.request.contextPath}/resources/autocomplete/jquery.easy-autocomplete.js"></script>
     <script src="${pageContext.request.contextPath}/resources/dual_listbox/jquery.bootstrap-duallistbox.js"></script>
     <script src="${pageContext.request.contextPath}/resources/tree/hummingbird-treeview.js"></script>
-    <script type="text/javascript" src="http://cdn.peerjs.com/0/peer.js"></script>
-    <!--<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>-->
+    <!--<script type="text/javascript" src="http://cdn.peerjs.com/0/peer.js"></script>-->
+    <script src="https://fb.me/react-15.0.1.js"></script>
+    <script src="https://fb.me/react-dom-15.0.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/sweetalert2.js"></script>
     <style>
         label.required::after {
             content: '(*)';
@@ -148,25 +151,25 @@
             return this.split(target).join(replacement);
         };
 
-        var conn;
-        // Connect to PeerJS, have server assign an ID instead of providing one
-        var name = '<%= session.getAttribute("userName")%>';
-        var peer = new Peer(name, {key: 'b0l2fzya333j714i', debug: true, allow_discovery: true});
-        peer.on('open', function (id) {
-        });
-
-        peer.on('connection', connect);
-        function connect(c) {
-            conn = c;
-            // nhan tin nhan
-            conn.on('data', function (data) {
-                alert(conn.peer + ': ' + data);
-                conn.send("hello");
-            });
-            //khi ngat ket noi
-            conn.on('close', function (err) {
-                alert(conn.peer + ' has left the chat.');
-            });
-        }
+//        var conn;
+//        // Connect to PeerJS, have server assign an ID instead of providing one
+//        var name = '<%= session.getAttribute("userName")%>';
+//        var peer = new Peer(name, {key: 'b0l2fzya333j714i', debug: true, allow_discovery: true});
+//        peer.on('open', function (id) {
+//        });
+//
+//        peer.on('connection', connect);
+//        function connect(c) {
+//            conn = c;
+//            // nhan tin nhan
+//            conn.on('data', function (data) {
+//                alert(conn.peer + ': ' + data);
+//                conn.send("hello");
+//            });
+//            //khi ngat ket noi
+//            conn.on('close', function (err) {
+//                alert(conn.peer + ' has left the chat.');
+//            });
+//        }
     </script>   
 </head>

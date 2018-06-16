@@ -29,6 +29,7 @@
                 <value>com.namph.entity.Money</value>
                 <value>com.namph.entity.Menu</value>
                 <value>com.namph.entity.MenuAction</value>
+                <value>com.namph.entity.CheDo</value>
             </list>
         </property>
  
