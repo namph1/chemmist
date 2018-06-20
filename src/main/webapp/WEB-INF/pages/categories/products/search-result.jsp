@@ -55,9 +55,12 @@
                                                 class="text-center">${loopCounter.index+1}</td>
                                             <td style="border: 1px solid silver;">${entity.code}</td>
                                             <td style="border: 1px solid silver;">${entity.name}
-<!--                                                <a onclick="showImage('${entity.getImage()}', '${entity.name}');" data-toggle="tooltip" title="Ảnh đại diện">
-                                                    <i class="fa fa-picture-o text-primary"></i>
-                                                </a>-->
+                                                <c:if test="${not empty  entity.quy_cach}">
+                                                    <a onclick="showAvatar('data:image/jpeg;base64,${entity.quy_cach}');" 
+                                                       data-toggle="tooltip" title="Ảnh đại diện">
+                                                        <i class="fa fa-picture-o text-primary"></i>
+                                                    </a>
+                                                </c:if>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.group.name}</td>
                                             <td style="border: 1px solid silver;">${entity.unit.name}</td>
@@ -102,9 +105,12 @@
                                             <td style="border: 1px solid silver;" class="text-center">${loopCounter.index+1}</td>
                                             <td style="border: 1px solid silver;">${entity.code}</td>
                                             <td style="border: 1px solid silver;">${entity.name}
-<!--                                                <a onclick="showImage('${entity.image}', '${entity.name}');" data-toggle="tooltip" title="Ảnh đại diện">
-                                                    <i class="fa fa-picture-o text-primary"></i>
-                                                </a>-->
+                                                <c:if test="${not empty  entity.quy_cach}">
+                                                    <a onclick="showAvatar('data:image/jpeg;base64,${entity.quy_cach}');" 
+                                                       data-toggle="tooltip" title="Ảnh đại diện">
+                                                        <i class="fa fa-picture-o text-primary"></i>
+                                                    </a>
+                                                </c:if>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.group.name}</td>
                                             <td style="border: 1px solid silver;">${entity.unit.name}</td>

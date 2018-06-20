@@ -17,9 +17,12 @@ import com.namph.model.BodyEntity;
 import com.namph.model.Page;
 import com.namph.utils.CONSTANT;
 import com.namph.utils.PageUtils;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -37,7 +41,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @RequestMapping(value = "/products")
-public class ProductsController {
+public class ProductsController extends BaseController {
 
     @Autowired
     private ProductDao productDao;
@@ -48,7 +52,7 @@ public class ProductsController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
-         model.addAttribute("titlePage", "Sản phẩm");
+        model.addAttribute("titlePage", "Sản phẩm");
         model.addAttribute("lblTitle", "Thêm mới sản phẩm");
         model.addAttribute("lstUnit", unitDao.getListUnit(new Unit()));
         model.addAttribute("lstType", gProductDao.getListProduct(new GroupProduct()));
@@ -78,6 +82,31 @@ public class ProductsController {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json2 = gson.toJson(new String(rs + ""));
         return json2;
+    }
+
+    @RequestMapping(value = "/addNew", method = RequestMethod.POST,  produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    int onCreateNew(HttpSession session,
+            @RequestParam("image") MultipartFile fileImage,
+            @RequestParam("detail") String jsonProduct) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        int rs = 0;
+        try {
+            Product product = gson.fromJson(jsonProduct, Product.class);
+            product.setUnit(new Unit(product.getUnitId()));
+            product.setGroup(new GroupProduct(product.getTypeId()));
+            product.setStatus(1);
+            product.setUserId(getUserIdLogin());
+
+            byte[] byteArr = fileImage.getBytes();
+            InputStream inputStream = new ByteArrayInputStream(byteArr);
+            inputStream.close();
+            product.setImage(byteArr);
+            rs = productDao.addProduct(product);
+
+        } catch (Exception e) {
+        }
+        return rs;
     }
 
     @RequestMapping(value = "/prepareEdit", method = RequestMethod.POST,

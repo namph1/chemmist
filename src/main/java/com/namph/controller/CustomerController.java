@@ -16,6 +16,7 @@ import com.namph.entity.Unit;
 import com.namph.model.Page;
 import com.namph.utils.CONSTANT;
 import com.namph.utils.PageUtils;
+import com.namph.utils.Utils;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +76,6 @@ public class CustomerController {
         return gson.toJson(result);
     }
 
-
-
-
     private void reloadData(Model model, Integer customerId) {
         Customer customerObj = customerDao.getCustomerById(customerId, false);
 
@@ -98,7 +96,6 @@ public class CustomerController {
 //                map1.put(obj.getProduct().getId(), obj);
 //            }
 //        }
-
         model.addAttribute("lstUnit", unitDao.getListUnit(new Unit()));
 //        model.addAttribute("lstProduct", map1);
     }
@@ -111,6 +108,10 @@ public class CustomerController {
         try {
             if (customer.getId() == null) {
                 customer.setCode(PageUtils.generateCodeCus(customer.getName()));
+                customer.setLevel(customerDao.getMaxLevel(customer.getCode()) + 1);
+                customer.setType(1);
+                customer.setStatus(1);
+                customer.setCreatedDate(Utils.getTimeVN());
                 customerDao.edit(customer);
             } else {
                 Customer cusDb = customerDao.getCustomerById(customer.getId(), true);
@@ -128,6 +129,5 @@ public class CustomerController {
         }
         return gson.toJson(result);
     }
-
 
 }

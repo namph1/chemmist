@@ -88,12 +88,12 @@
                                   name="note" rows="3"></textarea>
                     </div>
                 </div>
-<!--                <div class="form-group row" >
+                <div class="form-group row" >
                     <label for="note" class="col-md-3 control-label">Hình ảnh</label>
                     <div class="col-md-9">
                         <input type="file" id="add-image" name="fileUpload" class="form-control"/>
                     </div>
-                </div>-->
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="pull-left">

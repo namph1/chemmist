@@ -6,7 +6,6 @@
 package com.namph.entity;
 
 import com.namph.model.PagingModel;
-import com.namph.utils.Utils;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -58,7 +57,7 @@ public class Product extends PagingModel implements Serializable {
     @Column(name = "WEIGHT")
     private Float weight;
     @Column(name = "IMAGE")
-    private String image;
+    private byte[] image;
 
     @ManyToOne
     @JoinColumn(name = "\"UNIT_ID\"", nullable = false)
@@ -77,6 +76,7 @@ public class Product extends PagingModel implements Serializable {
     private Float count, total;
     @Transient
     private String sStatus, strDate, unitName, quy_cach;
+
     public Float getPriceAu() {
         return priceAu;
     }
@@ -85,17 +85,6 @@ public class Product extends PagingModel implements Serializable {
         this.priceAu = priceAu;
     }
 
-
-    public String getImage() {
-        if(!StringUtils.isEmpty(image)){
-            image = Utils.convertFileImageToBase64Url(image);
-        }
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
     public Integer getExportDetailId() {
         return exportDetailId;
     }
@@ -121,6 +110,14 @@ public class Product extends PagingModel implements Serializable {
     }
 
     public String getQuy_cach() {
+        if (image != null && image.length > 0) {
+            byte[] encodeBase64 = Base64.encodeBase64(image);
+            try {
+                quy_cach = new String(encodeBase64, "UTF-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return quy_cach;
     }
 
@@ -327,6 +324,14 @@ public class Product extends PagingModel implements Serializable {
 
     public void setWeight(Float weight) {
         this.weight = weight;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
 }

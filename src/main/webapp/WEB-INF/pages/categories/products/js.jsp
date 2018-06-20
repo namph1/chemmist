@@ -59,6 +59,12 @@
         add["note"] = $("#add-note").val().trim();
         add["weight"] = $("#add-weight").val().trim();
         add["typeId"] = $("#add-type").val();
+        var image = $('#add-image')[0].files[0];
+
+        var param = new FormData();
+        param.append('image', image);
+        param.append('detail', JSON.stringify(add));
+
         if ($("#add-type").val() == null || $("#add-type").val() == -1) {
             showMessage("Hãy chọn loại sản phẩm", "ERROR");
             return;
@@ -80,25 +86,31 @@
             $("#add-weight").focus();
             return;
         } else {
+
             $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "<%=request.getContextPath()%>/products/add",
-                data: JSON.stringify(add),
+                url: '<%=request.getContextPath()%>/products/addNew',
+                data: param,
                 dataType: 'json',
-                timeout: 100000,
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                type: 'POST',
                 success: function (data) {
                     $('#ojectAdd').modal('hide');
-                    showMessage("", "SUCCESS");
+                    showMessage(data, "SUCCESS");
                     onSearch(1);
                 },
                 error: function (e) {
-                    console.log("ERROR: ", e);
+                    showMessage(e, "ERROR");
                 },
                 done: function (e) {
                     console.log("DONE");
                 }
             });
+
+
+
         }
     }
 
@@ -206,6 +218,25 @@
         span.onclick = function () {
             modal.style.display = "none";
         };
+    }
+
+    function showAvatar(urlQR) {
+        $.confirm({
+            title: 'Ảnh đại diện',
+            closeIcon: true,
+            content:
+                    '<img src="' + urlQR + '">',
+            animation: 'scale',
+            animationClose: 'top',
+            buttons: {
+                confirm: {
+                    text: 'OK',
+                    btnClass: 'btn-danger',
+                    action: function () {
+                    }
+                }
+            },
+        });
     }
 
 </script>

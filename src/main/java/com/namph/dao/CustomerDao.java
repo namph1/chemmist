@@ -21,4 +21,6 @@ public interface CustomerDao {
     int edit(Customer customer) throws Exception;
 
     Customer getCustomerById(Integer customerid, boolean isLazy);
+    
+    Integer getMaxLevel(String code);
 }

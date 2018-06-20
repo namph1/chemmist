@@ -68,7 +68,7 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public int edit(Customer customer) throws Exception{
+    public int edit(Customer customer) throws Exception {
         Session session = this.sessionFactory.getCurrentSession();
         if (customer.getId() != null) {
             if (customer.getStatus() != null) {
@@ -101,19 +101,19 @@ public class CustomerDaoImpl implements CustomerDao {
                 session.merge(customer);
             }
         } else {
-            Criteria cri = session.createCriteria(Customer.class);
-            cri.add(Restrictions.eq("code", customer.getCode()));
-            cri.addOrder(Order.desc("level"));
-            List<Customer> lst = cri.list();
-            if (lst.isEmpty()) {
-                customer.setLevel(1);
-                 customer.setType(1);
-            } else {
-                customer.setLevel(lst.get(0).getLevel() + 1);
-            }
-
-            customer.setStatus(1);
-            customer.setCreatedDate(Utils.getTimeVN());
+//            Criteria cri = session.createCriteria(Customer.class);
+//            cri.add(Restrictions.eq("code", customer.getCode()));
+//            cri.addOrder(Order.desc("level"));
+//            List<Customer> lst = cri.list();
+//            if (lst.isEmpty()) {
+//                customer.setLevel(1);
+//                customer.setType(1);
+//            } else {
+//                customer.setLevel(lst.get(0).getLevel() + 1);
+//            }
+//
+//            customer.setStatus(1);
+//            customer.setCreatedDate(Utils.getTimeVN());
             session.persist(customer);
         }
         return customer.getId();
@@ -153,6 +153,17 @@ public class CustomerDaoImpl implements CustomerDao {
         cri.setProjection(Projections.rowCount());
         Long count = (Long) cri.uniqueResult();
         return Integer.valueOf(count.toString());
+    }
+
+    @Override
+    public Integer getMaxLevel(String code) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria cri = session.createCriteria(Customer.class);
+        cri.add(Restrictions.eq("code", code.toUpperCase()));
+        cri.setProjection(Projections.max("level"));
+        Integer maxAge = (Integer) cri.uniqueResult();
+        return maxAge;
+
     }
 
 }
