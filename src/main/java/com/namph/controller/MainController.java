@@ -14,6 +14,18 @@ import com.namph.entity.Export;
 import com.namph.entity.Money;
 import com.namph.entity.Product;
 import com.namph.utils.Utils;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.session.SessionRegistry;
@@ -63,12 +75,20 @@ public class MainController {
         money.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentMonth()));
         money.setType(1);
         money.setStatus(0);
-        model.addAttribute("sizeMoney", moneyDao.getTotal(money));
+        Double dMoney = moneyDao.getTotal(money);
+        model.addAttribute("sizeMoney", dMoney == null ? 0 : dMoney);
         money.setStatus(1);
-        model.addAttribute("sizeMoney2", moneyDao.getTotal(money));
+        dMoney = moneyDao.getTotal(money);
+        model.addAttribute("sizeMoney2", dMoney == null ? 0 : dMoney);
         model.addAttribute("sizeOline", sessionRegistry.getAllPrincipals().size());
         model.addAttribute("sizeProduct", productDao.getCount(new Product(null, null, 1)));
-
+        try {
+            JSONObject json = readJsonFromUrl("http://dongabank.com.vn/exchange/export");
+            JSONArray jsonArr = json.getJSONArray("items");
+            JSONObject obj = jsonArr.getJSONObject(1);
+            model.addAttribute("obj", obj);
+        } catch (Exception e) {
+        }
         return "home/home";
     }
 
@@ -83,4 +103,39 @@ public class MainController {
         return "logoutSuccessfulPage";
     }
 
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString().replace("(", "").replace(")", "");
+    }
+
+    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONObject json = new JSONObject(jsonText);
+            return json;
+        } finally {
+            is.close();
+        }
+    }
+
+    public static void main(String[] args) {
+        JSONObject json;
+        try {
+            json = readJsonFromUrl("http://dongabank.com.vn/exchange/export");
+            JSONArray jsonArr = json.getJSONArray("items");
+            JSONObject obj = jsonArr.getJSONObject(1);
+            System.out.println(obj.get("type"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//    System.out.println(json.get("id"));
+    }
 }

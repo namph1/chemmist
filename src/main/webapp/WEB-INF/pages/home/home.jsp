@@ -113,6 +113,22 @@
                 <a href="<%=request.getContextPath()%>/cash" class="small-box-footer">Đi tiếp <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-maroon-active">
+                <div class="inner">
+                    <h3>
+                        <fmt:formatNumber type = "number" minFractionDigits="0" maxFractionDigits="2" value = "${obj.get('bantienmat')}" />
+                    </h3>
+
+                    <p>Tỷ giá AUD(Out)</p>
+                </div>
+                <div class="icon" style="top: 5px;">
+                    <i class="ion ion-cash"></i>
+                </div>
+                <a href="<%=request.getContextPath()%>/cash" class="small-box-footer">Đi tiếp <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
         <!-- ./col -->
     </div>
 </section>   
