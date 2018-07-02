@@ -7,6 +7,7 @@ package com.namph.dao.impl;
 
 import com.namph.dao.ExportDao;
 import com.namph.entity.Export;
+import com.namph.entity.ExportDetail;
 import com.namph.utils.Utils;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -122,6 +123,17 @@ public class ExportDaoImpl implements ExportDao {
         cri.setProjection(Projections.rowCount());
         Long count = (Long) cri.uniqueResult();
         return Integer.valueOf(count.toString());
+    }
+
+    @Override
+    public List<ExportDetail> getHistoryProductEx(Integer productId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria cri = session.createCriteria(ExportDetail.class, "detail");
+        cri.createAlias("detail.product", "product", JoinType.LEFT_OUTER_JOIN);
+        cri.add(Restrictions.eq("product.id", productId));
+        cri.addOrder(Order.desc("createdDate"));
+        List<ExportDetail> lst = cri.list();
+        return lst;
     }
 
 }

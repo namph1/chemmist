@@ -36,7 +36,7 @@ public class TonKhoDaoImpl extends PagingModel implements TonKhoDao {
 
     @Override
     public List<TonKho> getListTonKho(String from, String to) {
-        StringBuilder sb = new StringBuilder(" SELECT ");
+        StringBuilder sb = new StringBuilder(" SELECT * FROM ( SELECT ");
         sb.append(" SUM(TEMP_XUAT_NHAP.\"COUNT\") AS \"SL_TON\", ");
         sb.append(" TEMP_XUAT_NHAP.\"PRODUCT_ID\", PRO.\"NAME\" AS \"TEN_SP\", UNI.\"NAME\" AS \"DONVI\", PRO.\"CODE\" AS \"MA_SP\",PRO.\"WEIGHT\" AS \"KHOILUONG\", ");
         sb.append(" COALESCE((SELECT SUM(\"COUNT\") FROM tbl_import_detail WHERE \"PRODUCT_ID\" = TEMP_XUAT_NHAP.\"PRODUCT_ID\"),0) AS \"SL_NHAP\", ");
@@ -53,6 +53,7 @@ public class TonKhoDaoImpl extends PagingModel implements TonKhoDao {
         sb.append(" ON PRO.\"ID\" = TEMP_XUAT_NHAP.\"PRODUCT_ID\" ");
         sb.append(" JOIN tbl_unit UNI ON UNI.\"ID\" = PRO.\"UNIT_ID\" ");
         sb.append(" GROUP BY TEMP_XUAT_NHAP.\"PRODUCT_ID\",PRO.\"NAME\",UNI.\"NAME\",PRO.\"CODE\",PRO.\"WEIGHT\" ");
+        sb.append(" ) AS _TEMP WHERE _TEMP.\"SL_TON\" > 0 ");
         
         
         List<TonKho> lstResult = new ArrayList<TonKho>();

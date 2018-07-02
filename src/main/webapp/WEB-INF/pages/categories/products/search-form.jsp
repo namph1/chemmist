@@ -21,8 +21,8 @@
                 </div>
                 <div class="panel-body">
                     <div class="row" id="divSearch">
-                        <script type="text/babel" src="${pageContext.request.contextPath}/resources/react-js/categories/product/Main.js">
-                        </script>
+<!--                        <script type="text/babel" src="${pageContext.request.contextPath}/resources/react-js/categories/product/Main.js">
+                        </script>-->
                         <div class="col col-md-3">
                             <div class="form-group">
                                 <label for="code" class="control-label">Mã sản phẩm</label>

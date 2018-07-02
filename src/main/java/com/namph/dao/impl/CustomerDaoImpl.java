@@ -162,8 +162,7 @@ public class CustomerDaoImpl implements CustomerDao {
         cri.add(Restrictions.eq("code", code.toUpperCase()));
         cri.setProjection(Projections.max("level"));
         Integer maxAge = (Integer) cri.uniqueResult();
-        return maxAge;
-
+        return maxAge == null ? 0 : maxAge;
     }
 
 }

@@ -68,10 +68,16 @@
                                                 <fmt:formatNumber type = "number" 
                                                                   pattern="###,###.###" value = "${entity.weight}" /></td>
                                             <td style="border: 1px solid silver;">
-                                                <fmt:formatNumber type = "number" 
+                                                <fmt:formatNumber type = "number"  
                                                                   pattern="###,###" value = "${entity.price}" />
+                                                <a onclick="showPriAu(2, ${entity.id});" data-toggle="collapse">
+                                                    <i class="fa fa-info-circle text-primary"></i>
+                                                </a>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.priceAu}
+                                                <a onclick="showPriAu(1, ${entity.id});" data-toggle="collapse">
+                                                    <i class="fa fa-info text-primary"></i>
+                                                </a>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.sStatus}</td>
                                             <td style="border: 1px solid silver;">
@@ -119,8 +125,11 @@
                                                                   pattern="###,###.###" value = "${entity.weight}" /></td>
                                             <td style="border: 1px solid silver;">
                                                 <fmt:formatNumber type = "number"  
-                                                                  pattern="###,###" value = "${entity.price}" /></td>
+                                                                  pattern="###,###" value = "${entity.price}" />
+                                                <i class="fa fa-info-circle text-primary"></i>
+                                            </td>
                                             <td style="border: 1px solid silver;">${entity.priceAu}
+                                                <i class="fa fa-info text-primary"></i>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.sStatus}</td>
                                             <td style="border: 1px solid silver;">

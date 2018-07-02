@@ -5,6 +5,7 @@
  */
 package com.namph.entity;
 
+import com.namph.utils.Utils;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -20,6 +21,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -31,7 +33,7 @@ public class ExportDetail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exp_detail_seq")
-    @SequenceGenerator(name="exp_detail_seq", sequenceName = "tbl_export_detail_id_seq", allocationSize=50)
+    @SequenceGenerator(name = "exp_detail_seq", sequenceName = "tbl_export_detail_id_seq", allocationSize = 50)
     @Column(name = "ID")
     private Integer id;
     @Column(name = "COUNT")
@@ -54,6 +56,20 @@ public class ExportDetail implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "\"UNIT_ID\"", nullable = false)
     private Unit unit;
+
+    @Transient
+    private String strDate;
+
+    public String getStrDate() {
+        if (createdDate != null) {
+            strDate = Utils.Date2DDMMYYYYH24MI(createdDate);
+        }
+        return strDate;
+    }
+
+    public void setStrDate(String strDate) {
+        this.strDate = strDate;
+    }
 
     public Float getWeight() {
         return weight;

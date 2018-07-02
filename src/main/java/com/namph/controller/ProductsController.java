@@ -7,9 +7,12 @@ package com.namph.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.namph.dao.ExportDao;
 import com.namph.dao.GroupDao;
+import com.namph.dao.ImportDao;
 import com.namph.dao.ProductDao;
 import com.namph.dao.UnitDao;
+import com.namph.entity.ExportDetail;
 import com.namph.entity.GroupProduct;
 import com.namph.entity.Product;
 import com.namph.entity.Unit;
@@ -49,6 +52,11 @@ public class ProductsController extends BaseController {
     private UnitDao unitDao;
     @Autowired
     private GroupDao gProductDao;
+    @Autowired
+    private ImportDao importDao;
+    @Autowired
+    private ExportDao exportDao;
+    
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
@@ -156,6 +164,25 @@ public class ProductsController extends BaseController {
             List<BodyEntity> lstBody = new ArrayList<BodyEntity>();
             for (Product obj : lst) {
                 BodyEntity entity = new BodyEntity(obj.getId(), obj.getCode(), obj.getName());
+                lstBody.add(entity);
+            }
+            json2 = gson.toJson(lstBody);
+        } catch (Exception e) {
+        }
+
+        return json2;
+    }
+    @RequestMapping(value = "/getPriceHistory", method = RequestMethod.POST)
+    public @ResponseBody
+    String getPriceHistory(HttpSession session, @RequestBody Product product, Model model) {
+        String json2 = "";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try {
+            List<ExportDetail> lst = exportDao.getHistoryProductEx(product.getId());
+            List<BodyEntity> lstBody = new ArrayList<BodyEntity>();
+            for (ExportDetail obj : lst) {
+                BodyEntity entity = new BodyEntity(obj.getId(), obj.getStrDate(), obj.getPrice().toString());
                 lstBody.add(entity);
             }
             json2 = gson.toJson(lstBody);

@@ -239,4 +239,43 @@
         });
     }
 
+    function showPriAu(type,id) {
+        var search = {};
+        search["typeId"] = type;
+        search["id"] = id;
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "<%=request.getContextPath()%>/products/getPriceHistory",
+            data: JSON.stringify(search),
+            dataType: 'json',
+            timeout: 100000,
+            success: function (data) {
+                //name- name2
+                var strTbl = '<table class="table table-bordered table-condensed table-striped">';
+                strTbl += '<tr><th>Ngày</th><th>Giá</th></tr>';
+                for(var i=0;i< data.length;i++){
+                    strTbl += '<tr><td>'+ data[i].name+'</td><td>'+ data[i].name2+'</td></tr>';
+                }
+                strTbl += '</table>';
+                
+                $.dialog({
+                    title: 'Asynchronous content',
+                    content: strTbl,
+                    animation: 'scale',
+                    columnClass: 'medium',
+                    closeAnimation: 'scale',
+                    backgroundDismiss: true,
+                });
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            },
+            done: function (e) {
+                console.log("DONE");
+            }
+        });
+
+    }
+
 </script>

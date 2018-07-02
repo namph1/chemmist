@@ -6,6 +6,7 @@
 package com.namph.dao;
 
 import com.namph.entity.Export;
+import com.namph.entity.ExportDetail;
 import java.util.List;
 
 /**
@@ -29,4 +30,6 @@ public interface ExportDao {
     int updateExp(Export emp) throws Exception;
     
     int getCountFromTo(Export exp);
+    
+    List<ExportDetail> getHistoryProductEx(Integer productId);
 }
