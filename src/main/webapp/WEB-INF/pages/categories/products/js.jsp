@@ -59,10 +59,13 @@
         add["note"] = $("#add-note").val().trim();
         add["weight"] = $("#add-weight").val().trim();
         add["typeId"] = $("#add-type").val();
-        var image = $('#add-image')[0].files[0];
-
+        var image;
         var param = new FormData();
-        param.append('image', image);
+        if ($('#add-image')[0].files.length == 0) {
+        } else {
+            image = $('#add-image')[0].files[0];
+            param.append('image', image);
+        }
         param.append('detail', JSON.stringify(add));
 
         if ($("#add-type").val() == null || $("#add-type").val() == -1) {
@@ -94,7 +97,7 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                enctype: 'multipart/form-data',
+                enctype: 'multipart/form-data;charset=utf-8',
                 type: 'POST',
                 success: function (data) {
                     $('#ojectAdd').modal('hide');
@@ -239,7 +242,7 @@
         });
     }
 
-    function showPriAu(type,id) {
+    function showPriAu(type, id, name) {
         var search = {};
         search["typeId"] = type;
         search["id"] = id;
@@ -252,18 +255,18 @@
             timeout: 100000,
             success: function (data) {
                 //name- name2
-                var strTbl = '<table class="table table-bordered table-condensed table-striped">';
-                strTbl += '<tr><th>Ngày</th><th>Giá</th></tr>';
-                for(var i=0;i< data.length;i++){
-                    strTbl += '<tr><td>'+ data[i].name+'</td><td>'+ data[i].name2+'</td></tr>';
+                var strTbl = '<table class="table table-bordered table-condensed table-striped" >';
+                strTbl += '<thead><tr><th style="border: 1px solid silver;">Ngày</th><th style="border: 1px solid silver;">Giá</th></tr></thead>';
+                for (var i = 0; i < data.length; i++) {
+                    strTbl += '<tr><td style="border: 1px solid silver;">' + data[i].name + '</td><td style="border: 1px solid silver;">' + numberWithCommas(data[i].name2) + '</td></tr>';
                 }
                 strTbl += '</table>';
-                
+
                 $.dialog({
-                    title: 'Asynchronous content',
+                    title: 'Lịch sử giá <b>' + name + '</b>',
                     content: strTbl,
                     animation: 'scale',
-                    columnClass: 'medium',
+                    columnClass: 'small',
                     closeAnimation: 'scale',
                     backgroundDismiss: true,
                 });

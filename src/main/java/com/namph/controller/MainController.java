@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
@@ -85,8 +86,15 @@ public class MainController {
         try {
             JSONObject json = readJsonFromUrl("http://dongabank.com.vn/exchange/export");
             JSONArray jsonArr = json.getJSONArray("items");
-            JSONObject obj = jsonArr.getJSONObject(1);
-            model.addAttribute("obj", obj);
+            Iterator itr = jsonArr.iterator();
+            while (itr.hasNext()) {
+                JSONObject obj = (JSONObject) itr.next();
+                if (obj.get("type").toString().equals("AUD")) {
+                    model.addAttribute("obj", obj);
+                    break;
+                }
+            }
+//            JSONObject obj = jsonArr.getJSONObject(1);
         } catch (Exception e) {
         }
         return "home/home";

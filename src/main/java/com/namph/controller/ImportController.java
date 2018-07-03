@@ -171,11 +171,12 @@ public class ImportController {
         try {
             if (arrProduct != null && arrProduct.length > 0) {
                 Import imp = new Import();
-                imp.setStrCreateDate("01" + curr.replaceAll("-", "/").substring(2, 10));
+//                imp.setStrCreateDate("01" + curr.replaceAll("-", "/").substring(2, 10));
+                imp.setStrCreateDate("01/01" + curr.replaceAll("-", "/").substring(4, 10));
                 imp.setCustomer(new Customer(arrProduct[0].getUserId()));
                 imp.setFeeShip(arrProduct[0].getTotal());
                 imp.setRate(arrProduct[0].getPriceAu());
-                int maxNo = importDao.getMaxNoByMonth(imp) + 1;
+                int maxNo = importDao.getMaxNoByYear(imp) + 1;
                 Date createdDate = Utils.getTimeVN();
                 List<ImportDetail> lstDetail = new ArrayList<>();
                 Float weight = 0f;

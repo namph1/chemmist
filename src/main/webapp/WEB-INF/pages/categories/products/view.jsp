@@ -3,7 +3,7 @@
     Created on : Sep 17, 2017, 10:37:19 AM
     Author     : namph
 --%>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>

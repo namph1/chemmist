@@ -5,6 +5,7 @@
  */
 package com.namph.entity;
 
+import com.namph.utils.Utils;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -20,6 +21,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -49,6 +51,20 @@ public class ImportDetail implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "\"PRODUCT_ID\"", nullable = false)
     private Product product;
+
+    @Transient
+    private String strDate;
+
+    public String getStrDate() {
+        if (createdDate != null) {
+            strDate = Utils.Date2DDMMYYYYH24MI(createdDate);
+        }
+        return strDate;
+    }
+
+    public void setStrDate(String strDate) {
+        this.strDate = strDate;
+    }
 
     public Integer getId() {
         return id;

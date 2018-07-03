@@ -6,6 +6,7 @@
 package com.namph.dao;
 
 import com.namph.entity.Import;
+import com.namph.entity.ImportDetail;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public interface ImportDao {
 
     int getMaxNoByMonth(Import imp);
     
+    int getMaxNoByYear(Import imp);
+    
     int insertImp(Import imp);
     
     Import getImpById(Import imp);
@@ -28,4 +31,6 @@ public interface ImportDao {
     int deleteImp(Import imp);
     
     int deleteImpDauKy(Date from, Date to);
+    
+    List<ImportDetail> getHistoryPrice(Integer productId);
 }

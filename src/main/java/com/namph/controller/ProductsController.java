@@ -14,6 +14,7 @@ import com.namph.dao.ProductDao;
 import com.namph.dao.UnitDao;
 import com.namph.entity.ExportDetail;
 import com.namph.entity.GroupProduct;
+import com.namph.entity.ImportDetail;
 import com.namph.entity.Product;
 import com.namph.entity.Unit;
 import com.namph.model.BodyEntity;
@@ -25,7 +26,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -56,7 +56,6 @@ public class ProductsController extends BaseController {
     private ImportDao importDao;
     @Autowired
     private ExportDao exportDao;
-    
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String init(Model model) {
@@ -78,7 +77,8 @@ public class ProductsController extends BaseController {
         return new ModelAndView("categories/products/search-result");
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST,
+            produces = "application/json; charset=utf-8")
     public @ResponseBody
     String onCreate(HttpSession session, @RequestBody Product product) {
         product.setUnit(new Unit(product.getUnitId()));
@@ -92,10 +92,11 @@ public class ProductsController extends BaseController {
         return json2;
     }
 
-    @RequestMapping(value = "/addNew", method = RequestMethod.POST,  produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/addNew", method = RequestMethod.POST,
+            produces = "application/json; charset=utf-8")
     public @ResponseBody
     int onCreateNew(HttpSession session,
-            @RequestParam("image") MultipartFile fileImage,
+            @RequestParam(value = "image", required = false) MultipartFile fileImage,
             @RequestParam("detail") String jsonProduct) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         int rs = 0;
@@ -105,11 +106,12 @@ public class ProductsController extends BaseController {
             product.setGroup(new GroupProduct(product.getTypeId()));
             product.setStatus(1);
             product.setUserId(getUserIdLogin());
-
-            byte[] byteArr = fileImage.getBytes();
-            InputStream inputStream = new ByteArrayInputStream(byteArr);
-            inputStream.close();
-            product.setImage(byteArr);
+            if (null != fileImage) {
+                byte[] byteArr = fileImage.getBytes();
+                InputStream inputStream = new ByteArrayInputStream(byteArr);
+                inputStream.close();
+                product.setImage(byteArr);
+            }
             rs = productDao.addProduct(product);
 
         } catch (Exception e) {
@@ -172,18 +174,29 @@ public class ProductsController extends BaseController {
 
         return json2;
     }
+
     @RequestMapping(value = "/getPriceHistory", method = RequestMethod.POST)
     public @ResponseBody
     String getPriceHistory(HttpSession session, @RequestBody Product product, Model model) {
         String json2 = "";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<BodyEntity> lstBody = new ArrayList<BodyEntity>();
 
         try {
-            List<ExportDetail> lst = exportDao.getHistoryProductEx(product.getId());
-            List<BodyEntity> lstBody = new ArrayList<BodyEntity>();
-            for (ExportDetail obj : lst) {
-                BodyEntity entity = new BodyEntity(obj.getId(), obj.getStrDate(), obj.getPrice().toString());
-                lstBody.add(entity);
+            if (product.getTypeId() == 2) {
+                List<ExportDetail> lst = exportDao.getHistoryProductEx(product.getId());
+                for (ExportDetail obj : lst) {
+                    BodyEntity entity = new BodyEntity(obj.getId(), obj.getStrDate(),
+                            obj.getPrice().toString());
+                    lstBody.add(entity);
+                }
+            } else if (product.getTypeId() == 1) {
+                List<ImportDetail> lst = importDao.getHistoryPrice(product.getId());
+                for (ImportDetail obj : lst) {
+                    BodyEntity entity = new BodyEntity(obj.getId(), obj.getStrDate(),
+                            obj.getPrice().toString());
+                    lstBody.add(entity);
+                }
             }
             json2 = gson.toJson(lstBody);
         } catch (Exception e) {

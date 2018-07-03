@@ -56,6 +56,10 @@ public class ProductDaoImpl implements ProductDao {
     public int addProduct(Product product) {
         Session session = this.sessionFactory.getCurrentSession();
         if (product.getId() != null) {
+            Product prodb = getProductByid(product.getId());
+            if(product.getImage() == null){
+                product.setImage(prodb.getImage());
+            }
             session.merge(product);
         } else {
             session.persist(product);

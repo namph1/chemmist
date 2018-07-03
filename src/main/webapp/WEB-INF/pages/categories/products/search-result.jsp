@@ -70,12 +70,12 @@
                                             <td style="border: 1px solid silver;">
                                                 <fmt:formatNumber type = "number"  
                                                                   pattern="###,###" value = "${entity.price}" />
-                                                <a onclick="showPriAu(2, ${entity.id});" data-toggle="collapse">
+                                                <a onclick="showPriAu(2, ${entity.id}, '${entity.name}');" data-toggle="collapse">
                                                     <i class="fa fa-info-circle text-primary"></i>
                                                 </a>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.priceAu}
-                                                <a onclick="showPriAu(1, ${entity.id});" data-toggle="collapse">
+                                                <a onclick="showPriAu(1, ${entity.id}, '${entity.name}');" data-toggle="collapse">
                                                     <i class="fa fa-info text-primary"></i>
                                                 </a>
                                             </td>
@@ -126,10 +126,14 @@
                                             <td style="border: 1px solid silver;">
                                                 <fmt:formatNumber type = "number"  
                                                                   pattern="###,###" value = "${entity.price}" />
-                                                <i class="fa fa-info-circle text-primary"></i>
+                                                <a onclick="showPriAu(2, ${entity.id}, '${entity.name}');" data-toggle="collapse">
+                                                    <i class="fa fa-info-circle text-primary"></i>
+                                                </a>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.priceAu}
-                                                <i class="fa fa-info text-primary"></i>
+                                                <a onclick="showPriAu(1, ${entity.id}, '${entity.name}');" data-toggle="collapse">
+                                                    <i class="fa fa-info text-primary"></i>
+                                                </a>
                                             </td>
                                             <td style="border: 1px solid silver;">${entity.sStatus}</td>
                                             <td style="border: 1px solid silver;">

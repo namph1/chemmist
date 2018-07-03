@@ -7,6 +7,7 @@ package com.namph.dao.impl;
 
 import com.namph.dao.ImportDao;
 import com.namph.entity.Import;
+import com.namph.entity.ImportDetail;
 import com.namph.utils.Utils;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -108,6 +110,28 @@ public class ImportDaoImpl implements ImportDao {
         int result = query.executeUpdate();
         session.flush();
         return result;
+    }
+
+    @Override
+    public List<ImportDetail> getHistoryPrice(Integer productId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria cri = session.createCriteria(ImportDetail.class, "detail");
+        cri.createAlias("detail.product", "product", JoinType.LEFT_OUTER_JOIN);
+        cri.add(Restrictions.eq("product.id", productId));
+        cri.addOrder(Order.desc("createdDate"));
+        List<ImportDetail> lst = cri.list();
+        return lst;
+    }
+
+    @Override
+    public int getMaxNoByYear(Import imp) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria cri = session.createCriteria(Import.class);
+        imp.setCreatedDate(null);
+        cri.add(Restrictions.ge("createdDate", Utils.stringDDMMYYY2Date(imp.getStrCreateDate())));
+        cri.setProjection(Projections.max("no"));
+        Integer count = (Integer) cri.uniqueResult();
+        return Integer.valueOf(count == null ? "0" : count.toString());
     }
 
 }
