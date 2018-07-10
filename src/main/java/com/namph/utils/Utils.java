@@ -783,11 +783,33 @@ public class Utils {
         Date firstDateOfCurrMonth = aCalendar.getTime();
         return firstDateOfCurrMonth;
     }
+    public static Date getFirstDayOfCurrentYear(boolean setStartTime) {
+        Calendar aCalendar = Calendar.getInstance();
+        aCalendar.set(Calendar.MONTH, 0);
+        aCalendar.set(Calendar.DATE, 1);
+        if (setStartTime) {
+            aCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            aCalendar.set(Calendar.MINUTE, 0);
+            aCalendar.set(Calendar.SECOND, 0);
+        }
+        Date firstDateOfCurrMonth = aCalendar.getTime();
+        return firstDateOfCurrMonth;
+    }
 
     public static Date getLastDayOfCurrentMonth() {
         Calendar aCalendar = Calendar.getInstance();
         aCalendar.add(Calendar.MONTH, 0);
         aCalendar.set(Calendar.DATE, aCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        aCalendar.set(Calendar.HOUR_OF_DAY, 23);
+        aCalendar.set(Calendar.MINUTE, 59);
+        aCalendar.set(Calendar.SECOND, 59);
+        Date lastDateOfCurrMonth = aCalendar.getTime();
+        return lastDateOfCurrMonth;
+    }
+    public static Date getLastDayOfCurrentYear() {
+        Calendar aCalendar = Calendar.getInstance();
+        aCalendar.set(Calendar.MONTH, 11);
+        aCalendar.set(Calendar.DATE, 31);
         aCalendar.set(Calendar.HOUR_OF_DAY, 23);
         aCalendar.set(Calendar.MINUTE, 59);
         aCalendar.set(Calendar.SECOND, 59);

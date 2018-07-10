@@ -39,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author namph
  */
+
+
 @Controller
 public class MainController {
 
@@ -67,13 +69,13 @@ public class MainController {
     public String welcomePage(Model model) {
         model.addAttribute("titlePage", "Trang chủ");
         Export exp = new Export();
-        exp.setFromDate(Utils.Date2DDMMYYYYH24MI(Utils.getFirstDayOfCurrentMonth(true)));
-        exp.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentMonth()));
+        exp.setFromDate(Utils.Date2DDMMYYYYH24MI(Utils.getFirstDayOfCurrentYear(true)));
+        exp.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentYear()));
         model.addAttribute("sizeExp", exportDao.getCountFromTo(exp));
         model.addAttribute("sizeCus", customerDao.getCount(new Customer(null, null, null, null, 1)));
         Money money = new Money();
-        money.setFromDate(Utils.Date2DDMMYYYYH24MI(Utils.getFirstDayOfCurrentMonth(true)));
-        money.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentMonth()));
+        money.setFromDate(Utils.Date2DDMMYYYYH24MI(Utils.getFirstDayOfCurrentYear(true)));
+        money.setToDate(Utils.Date2DDMMYYYYH24MI(Utils.getLastDayOfCurrentYear()));
         money.setType(1);
         money.setStatus(0);
         Double dMoney = moneyDao.getTotal(money);
@@ -94,7 +96,6 @@ public class MainController {
                     break;
                 }
             }
-//            JSONObject obj = jsonArr.getJSONObject(1);
         } catch (Exception e) {
         }
         return "home/home";
